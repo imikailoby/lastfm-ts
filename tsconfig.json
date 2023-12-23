@@ -1,0 +1,23 @@
+{
+    "include": ["src/**/*", "rollup.config.ts", "jest.config.ts"],
+    "exclude": ["node_modules", "dist"],
+    "compilerOptions": {
+        "lib": ["ESNext"],
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "rootDir": ".",
+        "outDir": "./dist/",
+        "strict": true,
+        "module": "ESNext",
+        "target": "ES2020",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    }
+}
