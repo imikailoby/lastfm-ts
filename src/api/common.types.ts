@@ -34,3 +34,12 @@ export enum TaggingType {
     ALBUM = 'album',
     TRACK = 'track',
 }
+
+export enum Period {
+    OVERALL = 'overall',
+    WEEK = '7day',
+    MONTH = '1month',
+    THREE_MONTHS = '3month',
+    SIX_MONTHS = '6month',
+    YEAR = '12month',
+}

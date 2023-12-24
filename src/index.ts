@@ -1,6 +1,6 @@
 export { LastFm } from './client/lastfm';
 export { ApiClientError, ApiError } from './common/apiClient.types';
-export { Image, ImageSize, AttrPagination, Registered, TaggingType } from './api/common.types';
+export { Image, ImageSize, AttrPagination, Registered, TaggingType, Period } from './api/common.types';
 export {
     User,
     SubscriberStatus,
@@ -16,6 +16,7 @@ export {
     UserRecentTrackAlbum,
     UserRecentTrackArtist,
     UserRecentTrackArtistExtended,
+    UserTopAlbum,
 } from './api/user/user.types';
 export { Artist } from './api/artist/artist.types';
 export { Track, TrackArtist } from './api/track/track.types';

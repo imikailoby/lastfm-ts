@@ -1,5 +1,5 @@
 import { ApiClient } from '../../common/apiClient';
-import { TaggingType } from '../common.types';
+import { Period, TaggingType } from '../common.types';
 import { UserApi } from './user';
 import { RecentTracksType, UserApiMethods } from './user.types';
 
@@ -187,6 +187,32 @@ describe('UserApi', () => {
         expect(mockedGet).toHaveBeenNthCalledWith(4, {
             api_key: mockedApiKey,
             method: UserApiMethods.GET_RECENT_TRACKS,
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
+        });
+    });
+
+    it('getTopAlbums()', async () => {
+        await userApi.getTopAlbums({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_ALBUMS,
+            user: mockedUserName,
+        });
+
+        await userApi.getTopAlbums({ user: mockedUserName, period: Period.SIX_MONTHS });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_ALBUMS,
+            user: mockedUserName,
+            period: Period.SIX_MONTHS,
+        });
+
+        await userApi.getTopAlbums({ user: mockedUserName, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_ALBUMS,
             user: mockedUserName,
             page: '2',
             limit: '10',

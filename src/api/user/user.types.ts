@@ -1,7 +1,7 @@
 import { PaginationQueryParams } from '../../common/apiClient.types';
 import { Album } from '../album/album.types';
 import { Artist } from '../artist/artist.types';
-import { AttrPagination, Image, Registered, TaggingType, UtcDate } from '../common.types';
+import { AttrPagination, Image, Period, Registered, TaggingType, UtcDate } from '../common.types';
 import { Track } from '../track/track.types';
 
 export enum UserApiMethods {
@@ -10,6 +10,7 @@ export enum UserApiMethods {
     GET_LOVED_TRACKS = 'user.getLovedTracks',
     GET_PERSONAL_TAGS = 'user.getPersonalTags',
     GET_RECENT_TRACKS = 'user.getRecentTracks',
+    GET_TOP_ALBUMS = 'user.getTopAlbums',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -170,6 +171,27 @@ export type UserRecentTrackArtist = Pick<Artist, 'mbid'> & {
 };
 
 export type UserRecentTrackArtistExtended = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>;
+
+export type UserGetTopAlbumsParams = PaginationQueryParams & {
+    user: string;
+    period?: Period;
+};
+
+export interface UserGetTopAlbumsResponse {
+    topalbums: {
+        '@attr': AttrPagination & {
+            user: string;
+        };
+        album: UserTopAlbum[];
+    };
+}
+
+export type UserTopAlbum = Pick<Album, 'image' | 'mbid' | 'name' | 'playcount' | 'url'> & {
+    '@attr': {
+        rank: string;
+    };
+    artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+};
 
 export type User = {
     age: string;
