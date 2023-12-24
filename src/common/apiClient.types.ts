@@ -27,4 +27,9 @@ export type RequiredQueryParams = Readonly<{
     api_key: string;
 }>;
 
+export type PaginationQueryParams = Readonly<{
+    limit?: string;
+    page?: string;
+}>;
+
 export type ApiClientMethods = Readonly<string>;

@@ -1,7 +1,7 @@
 import { UserApi } from './api/user/user';
 import { LastFm } from './index';
 
-const mockedApiKey = 'test'
+const mockedApiKey = 'test';
 
 describe('LastFm', () => {
     it('creates class instance', () => {
@@ -12,5 +12,5 @@ describe('LastFm', () => {
     it('has user methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.user).toBeInstanceOf(UserApi);
-    })
+    });
 });
