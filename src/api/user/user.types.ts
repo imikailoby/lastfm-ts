@@ -9,6 +9,7 @@ export enum UserApiMethods {
     GET_INFO = 'user.getInfo',
     GET_LOVED_TRACKS = 'user.getLovedTracks',
     GET_PERSONAL_TAGS = 'user.getPersonalTags',
+    GET_RECENT_TRACKS = 'user.getRecentTracks',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -115,6 +116,60 @@ export type UserGetPersonalTagsResponse<T> = {
             ? UserGetPersonalTagsTracksResponse
             : BaseUserGetPersonalTagsResponse;
 };
+
+export type UserGetRecentTracksParams = PaginationQueryParams & {
+    user: string;
+    extended?: RecentTracksType;
+    from?: string;
+    to?: string;
+};
+
+export enum RecentTracksType {
+    REGULAR = '0',
+    EXTENDED = '1',
+}
+
+interface BaseUserGetRecentTracksResponse {
+    '@attr': AttrPagination & {
+        user: string;
+    };
+}
+
+interface UserGetRecentTracksResponseRegular extends BaseUserGetRecentTracksResponse {
+    track: UserRecentTrack[];
+}
+
+interface UserGetRecentTracksResponseExtended extends BaseUserGetRecentTracksResponse {
+    track: UserRecentTrackExtended[];
+}
+
+export type UserGetRecentTracksResponse<T = RecentTracksType.REGULAR> = {
+    recenttracks: T extends RecentTracksType.EXTENDED
+        ? UserGetRecentTracksResponseExtended
+        : UserGetRecentTracksResponseRegular;
+};
+
+export type UserRecentTrack = Pick<Track, 'mbid' | 'name' | 'url'> & {
+    album: UserRecentTrackAlbum;
+    artist: UserRecentTrackArtist;
+    date: UtcDate;
+    image: Image[];
+};
+
+export type UserRecentTrackExtended = Omit<UserRecentTrack, 'artist'> & {
+    artist: UserRecentTrackArtistExtended;
+    loved: string;
+};
+
+export type UserRecentTrackAlbum = Pick<Album, 'mbid'> & {
+    '#text': string;
+};
+
+export type UserRecentTrackArtist = Pick<Artist, 'mbid'> & {
+    '#text': string;
+};
+
+export type UserRecentTrackArtistExtended = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>;
 
 export type User = {
     age: string;

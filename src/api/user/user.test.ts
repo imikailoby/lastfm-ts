@@ -1,7 +1,7 @@
 import { ApiClient } from '../../common/apiClient';
 import { TaggingType } from '../common.types';
 import { UserApi } from './user';
-import { UserApiMethods } from './user.types';
+import { RecentTracksType, UserApiMethods } from './user.types';
 
 jest.mock('../../common/apiClient');
 
@@ -155,6 +155,41 @@ describe('UserApi', () => {
             limit: '10',
             tag: 'pop',
             taggingtype: TaggingType.ALBUM,
+        });
+    });
+
+    it('getRecentTracks()', async () => {
+        await userApi.getRecentTracks({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_RECENT_TRACKS,
+            user: mockedUserName,
+        });
+
+        await userApi.getRecentTracks({ user: mockedUserName, extended: RecentTracksType.EXTENDED });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_RECENT_TRACKS,
+            user: mockedUserName,
+            extended: RecentTracksType.EXTENDED,
+        });
+
+        await userApi.getRecentTracks({ user: mockedUserName, from: '1640995200', to: '1643760000' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_RECENT_TRACKS,
+            user: mockedUserName,
+            from: '1640995200',
+            to: '1643760000',
+        });
+
+        await userApi.getRecentTracks({ user: mockedUserName, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_RECENT_TRACKS,
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
         });
     });
 });

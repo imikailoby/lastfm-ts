@@ -19,7 +19,7 @@ export type Registered = {
 
 export type UtcDate = {
     uts: string;
-    '#text': number;
+    '#text': number | string;
 };
 
 export type AttrPagination = {

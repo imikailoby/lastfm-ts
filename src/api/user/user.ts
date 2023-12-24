@@ -10,6 +10,9 @@ import {
     UserGetLovedTracksResponse,
     UserGetPersonalTagsParams,
     UserGetPersonalTagsResponse,
+    UserGetRecentTracksParams,
+    UserGetRecentTracksResponse,
+    RecentTracksType,
 } from './user.types';
 
 export class UserApi extends LastFmApi implements UserApiInterface {
@@ -46,6 +49,16 @@ export class UserApi extends LastFmApi implements UserApiInterface {
             ...params,
         });
     }
+
+    public getRecentTracks<T = RecentTracksType>(
+        params: UserGetRecentTracksParams,
+    ): Promise<UserGetRecentTracksResponse<T>> {
+        return this.apiClient.get<UserGetRecentTracksResponse<T>, UserGetRecentTracksParams>({
+            method: UserApiMethods.GET_RECENT_TRACKS,
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
 }
 
 interface UserApiInterface {
@@ -53,4 +66,7 @@ interface UserApiInterface {
     getInfo: (params: UserGetInfoParams) => Promise<UserGetInfoResponse>;
     getLovedTracks: (params: UserGetLovedTracksParams) => Promise<UserGetLovedTracksResponse>;
     getPersonalTags: <T = TaggingType>(params: UserGetPersonalTagsParams) => Promise<UserGetPersonalTagsResponse<T>>;
+    getRecentTracks: <T = RecentTracksType>(
+        params: UserGetRecentTracksParams,
+    ) => Promise<UserGetRecentTracksResponse<T>>;
 }
