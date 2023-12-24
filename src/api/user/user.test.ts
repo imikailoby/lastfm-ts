@@ -261,4 +261,30 @@ describe('UserApi', () => {
             limit: '20',
         });
     });
+
+    it('getTopTracks()', async () => {
+        await userApi.getTopTracks({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_TRACKS,
+            user: mockedUserName,
+        });
+
+        await userApi.getTopTracks({ user: mockedUserName, period: Period.SIX_MONTHS });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_TRACKS,
+            user: mockedUserName,
+            period: Period.SIX_MONTHS,
+        });
+
+        await userApi.getTopTracks({ user: mockedUserName, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_TRACKS,
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
+        });
+    });
 });

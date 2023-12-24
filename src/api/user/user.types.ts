@@ -14,6 +14,7 @@ export enum UserApiMethods {
     GET_TOP_ALBUMS = 'user.getTopAlbums',
     GET_TOP_ARTISTS = 'user.getTopArtists',
     GET_TOP_TAGS = 'user.getTopTags',
+    GET_TOP_TRACKS = 'user.getTopTracks',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -217,9 +218,8 @@ export type UserTopArtist = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'> & {
     playcount: string;
 };
 
-export type UserGetTopTagsParams = {
+export type UserGetTopTagsParams = Pick<PaginationQueryParams, 'limit'> & {
     user: string;
-    limit?: string;
 };
 
 export interface UserGetTopTagsResponse {
@@ -234,6 +234,27 @@ export interface UserGetTopTagsResponse {
 export type UserTopTag = Pick<Tag, 'name'> & {
     count: string;
     url: string;
+};
+
+export type UserGetTopTracksParams = PaginationQueryParams & {
+    user: string;
+    period?: Period;
+};
+
+export interface UserGetTopTracksResponse {
+    toptracks: {
+        '@attr': AttrPagination & {
+            user: string;
+        };
+        track: UserTopTrack[];
+    };
+}
+
+export type UserTopTrack = Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'playcount' | 'url'> & {
+    '@attr': {
+        rank: string;
+    };
+    image: Image[];
 };
 
 export type User = {
