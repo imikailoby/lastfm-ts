@@ -1,13 +1,14 @@
 import { Image } from '../common.types';
 
-export type Artist = {
-    bio: unknown;
+export type Album = {
+    artist: string;
     image: Image[];
+    listeners: string;
     mbid: string;
     name: string;
-    ontour: unknown;
-    similar: unknown[];
-    stats: unknown;
+    playcount: string;
     tags: unknown[];
+    tracks: unknown[];
     url: string;
+    wiki: unknown;
 };

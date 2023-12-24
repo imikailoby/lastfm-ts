@@ -1,3 +1,4 @@
+import { TaggingType } from '../common.types';
 import { LastFmApi } from '../lastFmApi';
 import {
     UserApiMethods,
@@ -7,6 +8,8 @@ import {
     type UserGetInfoParams,
     type UserGetInfoResponse,
     UserGetLovedTracksResponse,
+    UserGetPersonalTagsParams,
+    UserGetPersonalTagsResponse,
 } from './user.types';
 
 export class UserApi extends LastFmApi implements UserApiInterface {
@@ -33,10 +36,21 @@ export class UserApi extends LastFmApi implements UserApiInterface {
             ...params,
         });
     }
+
+    public getPersonalTags<T = TaggingType>(
+        params: UserGetPersonalTagsParams,
+    ): Promise<UserGetPersonalTagsResponse<T>> {
+        return this.apiClient.get<UserGetPersonalTagsResponse<T>, UserGetPersonalTagsParams>({
+            method: UserApiMethods.GET_PERSONAL_TAGS,
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
 }
 
 interface UserApiInterface {
     getFriends: (params: UserGetFriendsParams) => Promise<UserGetFriendsResponse>;
     getInfo: (params: UserGetInfoParams) => Promise<UserGetInfoResponse>;
     getLovedTracks: (params: UserGetLovedTracksParams) => Promise<UserGetLovedTracksResponse>;
+    getPersonalTags: <T = TaggingType>(params: UserGetPersonalTagsParams) => Promise<UserGetPersonalTagsResponse<T>>;
 }

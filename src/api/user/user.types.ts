@@ -1,11 +1,14 @@
 import { PaginationQueryParams } from '../../common/apiClient.types';
-import { AttrPagination, Image, Registered, UtcDate } from '../common.types';
+import { Album } from '../album/album.types';
+import { Artist } from '../artist/artist.types';
+import { AttrPagination, Image, Registered, TaggingType, UtcDate } from '../common.types';
 import { Track } from '../track/track.types';
 
 export enum UserApiMethods {
     GET_FIRENDS = 'user.getFriends',
     GET_INFO = 'user.getInfo',
     GET_LOVED_TRACKS = 'user.getLovedTracks',
+    GET_PERSONAL_TAGS = 'user.getPersonalTags',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -21,7 +24,20 @@ export type UserGetFriendsResponse = {
     };
 };
 
-export type UserFriend = Omit<User, 'age' | 'album_count' | 'artist_count' | 'gender' | 'track_count'>;
+export type UserFriend = Pick<
+    User,
+    | 'bootstrap'
+    | 'country'
+    | 'image'
+    | 'name'
+    | 'playcount'
+    | 'playlists'
+    | 'realname'
+    | 'registered'
+    | 'subscriber'
+    | 'type'
+    | 'url'
+>;
 
 export type UserGetInfoParams = {
     user?: string;
@@ -44,10 +60,60 @@ export type UserGetLovedTracksResponse = {
     };
 };
 
-export type UserLovedTrack = Pick<Track, 'artist' | 'name' | 'streamable' | 'url'> & {
-    mbid: string;
+export type UserLovedTrack = Pick<Track, 'artist' | 'name' | 'mbid' | 'url'> & {
     date: UtcDate;
     image: Image[];
+};
+
+export type UserGetPersonalTagsParams = PaginationQueryParams & {
+    user: string;
+    tag: string;
+    taggingtype: TaggingType;
+};
+
+interface BaseUserGetPersonalTagsResponse {
+    '@attr': AttrPagination & {
+        user: string;
+        tag: string;
+    };
+}
+
+interface UserGetPersonalTagsAlbumsResponse extends BaseUserGetPersonalTagsResponse {
+    albums: {
+        album: UserPersonalTagsAlbum[];
+    };
+}
+
+export type UserPersonalTagsAlbum = Pick<Album, 'image' | 'mbid' | 'name' | 'url'> & {
+    artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+};
+
+interface UserGetPersonalTagsArtistsResponse extends BaseUserGetPersonalTagsResponse {
+    artists: {
+        artist: UserPersonalTagsArtist[];
+    };
+}
+
+export type UserPersonalTagsArtist = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>;
+
+interface UserGetPersonalTagsTracksResponse extends BaseUserGetPersonalTagsResponse {
+    tracks: {
+        track: UserPersonalTagsTrack[];
+    };
+}
+
+export type UserPersonalTagsTrack = Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'url'> & {
+    image: Image[];
+};
+
+export type UserGetPersonalTagsResponse<T> = {
+    taggings: T extends TaggingType.ALBUM
+        ? UserGetPersonalTagsAlbumsResponse
+        : T extends TaggingType.ARTIST
+          ? UserGetPersonalTagsArtistsResponse
+          : T extends TaggingType.TRACK
+            ? UserGetPersonalTagsTracksResponse
+            : BaseUserGetPersonalTagsResponse;
 };
 
 export type User = {

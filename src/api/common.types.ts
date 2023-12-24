@@ -8,6 +8,8 @@ export enum ImageSize {
     MEDIUM = 'medium',
     LARGE = 'large',
     EXTRA_LARGE = 'extralarge',
+    MEGA = 'mega',
+    UNKNOWN = '',
 }
 
 export type Registered = {
@@ -20,14 +22,15 @@ export type UtcDate = {
     '#text': number;
 };
 
-export type Streamable = {
-    fulltrack: string;
-    '#text': string;
-};
-
 export type AttrPagination = {
     page: string;
     perPage: string;
     total: string;
     totalPages: string;
 };
+
+export enum TaggingType {
+    ARTIST = 'artist',
+    ALBUM = 'album',
+    TRACK = 'track',
+}

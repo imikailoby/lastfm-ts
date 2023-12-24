@@ -1,9 +1,16 @@
 import type { Artist } from '../artist/artist.types';
-import type { Streamable } from '../common.types';
 
 export type Track = {
-    artist: Omit<Artist, 'mbid' | 'name' | 'url'>;
+    album: unknown;
+    artist: TrackArtist;
+    duration: string;
+    listeners: string;
+    mbid: string;
     name: string;
-    streamable: Streamable;
+    playcount: string;
+    toptags: unknown[];
     url: string;
+    wiki: unknown;
 };
+
+export type TrackArtist = Pick<Artist, 'mbid' | 'name' | 'url'>;

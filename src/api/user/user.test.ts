@@ -1,4 +1,5 @@
 import { ApiClient } from '../../common/apiClient';
+import { TaggingType } from '../common.types';
 import { UserApi } from './user';
 import { UserApiMethods } from './user.types';
 
@@ -101,6 +102,59 @@ describe('UserApi', () => {
             user: mockedUserName,
             page: '2',
             limit: '10',
+        });
+    });
+
+    it('getLovedTracks()', async () => {
+        await userApi.getPersonalTags({ user: mockedUserName, tag: 'rock', taggingtype: TaggingType.ALBUM });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_PERSONAL_TAGS,
+            user: mockedUserName,
+            tag: 'rock',
+            taggingtype: TaggingType.ALBUM,
+        });
+
+        await userApi.getPersonalTags({ user: mockedUserName, page: '2', tag: 'rap', taggingtype: TaggingType.ARTIST });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_PERSONAL_TAGS,
+            user: mockedUserName,
+            page: '2',
+            tag: 'rap',
+            taggingtype: TaggingType.ARTIST,
+        });
+
+        await userApi.getPersonalTags({
+            user: mockedUserName,
+            limit: '10',
+            tag: 'jazz',
+            taggingtype: TaggingType.TRACK,
+        });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_PERSONAL_TAGS,
+            user: mockedUserName,
+            limit: '10',
+            tag: 'jazz',
+            taggingtype: TaggingType.TRACK,
+        });
+
+        await userApi.getPersonalTags({
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
+            tag: 'pop',
+            taggingtype: TaggingType.ALBUM,
+        });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_PERSONAL_TAGS,
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
+            tag: 'pop',
+            taggingtype: TaggingType.ALBUM,
         });
     });
 });
