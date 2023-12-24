@@ -287,4 +287,22 @@ describe('UserApi', () => {
             limit: '10',
         });
     });
+
+    it('getWeeklyAlbumChart()', async () => {
+        await userApi.getWeeklyAlbumChart({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_WEEKLY_ALBUM_CHART,
+            user: mockedUserName,
+        });
+
+        await userApi.getWeeklyAlbumChart({ user: mockedUserName, from: '1640995200', to: '1643760000' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_WEEKLY_ALBUM_CHART,
+            user: mockedUserName,
+            from: '1640995200',
+            to: '1643760000',
+        });
+    });
 });
