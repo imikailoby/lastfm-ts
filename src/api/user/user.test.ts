@@ -69,4 +69,38 @@ describe('UserApi', () => {
             limit: '10',
         });
     });
+
+    it('getLovedTracks()', async () => {
+        await userApi.getLovedTracks({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_LOVED_TRACKS,
+            user: mockedUserName,
+        });
+
+        await userApi.getLovedTracks({ user: mockedUserName, page: '2' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_LOVED_TRACKS,
+            user: mockedUserName,
+            page: '2',
+        });
+
+        await userApi.getLovedTracks({ user: mockedUserName, limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_LOVED_TRACKS,
+            user: mockedUserName,
+            limit: '10',
+        });
+
+        await userApi.getLovedTracks({ user: mockedUserName, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_LOVED_TRACKS,
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
+        });
+    });
 });

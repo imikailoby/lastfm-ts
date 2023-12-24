@@ -12,7 +12,17 @@ export enum ImageSize {
 
 export type Registered = {
     unixtime: string;
+    '#text': number | string;
+};
+
+export type UtcDate = {
+    uts: string;
     '#text': number;
+};
+
+export type Streamable = {
+    fulltrack: string;
+    '#text': string;
 };
 
 export type AttrPagination = {

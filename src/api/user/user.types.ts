@@ -1,9 +1,11 @@
 import { PaginationQueryParams } from '../../common/apiClient.types';
-import { AttrPagination, Image, Registered } from '../common.types';
+import { AttrPagination, Image, Registered, UtcDate } from '../common.types';
+import { Track } from '../track/track.types';
 
 export enum UserApiMethods {
     GET_FIRENDS = 'user.getFriends',
     GET_INFO = 'user.getInfo',
+    GET_LOVED_TRACKS = 'user.getLovedTracks',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -15,9 +17,11 @@ export type UserGetFriendsResponse = {
         '@attr': AttrPagination & {
             user: string;
         };
-        user: Omit<User, 'age' | 'album_count' | 'artist_count' | 'gender' | 'track_count'>[];
+        user: UserFriend[];
     };
 };
+
+export type UserFriend = Omit<User, 'age' | 'album_count' | 'artist_count' | 'gender' | 'track_count'>;
 
 export type UserGetInfoParams = {
     user?: string;
@@ -25,6 +29,25 @@ export type UserGetInfoParams = {
 
 export type UserGetInfoResponse = {
     user: User;
+};
+
+export type UserGetLovedTracksParams = PaginationQueryParams & {
+    user: string;
+};
+
+export type UserGetLovedTracksResponse = {
+    lovedtracks: {
+        '@attr': AttrPagination & {
+            user: string;
+        };
+        track: UserLovedTrack[];
+    };
+};
+
+export type UserLovedTrack = Pick<Track, 'artist' | 'name' | 'streamable' | 'url'> & {
+    mbid: string;
+    date: UtcDate;
+    image: Image[];
 };
 
 export type User = {
