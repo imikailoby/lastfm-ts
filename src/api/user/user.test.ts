@@ -323,4 +323,22 @@ describe('UserApi', () => {
             to: '1643760000',
         });
     });
+
+    it('getWeeklyTrackChart()', async () => {
+        await userApi.getWeeklyTrackChart({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_WEEKLY_TRACK_CHART,
+            user: mockedUserName,
+        });
+
+        await userApi.getWeeklyTrackChart({ user: mockedUserName, from: '1640995200', to: '1643760000' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_WEEKLY_TRACK_CHART,
+            user: mockedUserName,
+            from: '1640995200',
+            to: '1643760000',
+        });
+    });
 });

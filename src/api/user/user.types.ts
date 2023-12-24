@@ -17,6 +17,7 @@ export enum UserApiMethods {
     GET_TOP_TRACKS = 'user.getTopTracks',
     GET_WEEKLY_ALBUM_CHART = 'user.getWeeklyAlbumChart',
     GET_WEEKLY_ARTIST_CHART = 'user.getWeeklyArtistChart',
+    GET_WEEKLY_TRACK_CHART = 'user.getWeeklyTrackChart',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -309,6 +310,35 @@ export type UserWeeklyArtist = Pick<Artist, 'mbid' | 'name' | 'url'> & {
         rank: string;
     };
     playcount: string;
+};
+
+export type UserGetWeeklyArtistTrackParams = {
+    user: string;
+    from?: string;
+    to?: string;
+};
+
+export interface UserGetWeeklyArtistTrackResponse {
+    weeklytrackchart: {
+        '@attr': {
+            from: string;
+            to: string;
+            user: string;
+        };
+        artist: UserWeeklyTrack[];
+    };
+}
+
+export type UserWeeklyTrack = Pick<Track, 'mbid' | 'name' | 'playcount' | 'url'> & {
+    '@attr': {
+        rank: string;
+    };
+    artist: UserWeeklyTrackArtist;
+    image: Image[];
+};
+
+export type UserWeeklyTrackArtist = Pick<Artist, 'mbid'> & {
+    '#text': string;
 };
 
 export type User = {
