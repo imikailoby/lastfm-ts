@@ -1,13 +1,12 @@
-import { UserApi } from './api/user/user';
-
-export class LastFm implements LastFmInterface {
-    public user: UserApi;
-
-    constructor(apiKey: string) {
-        this.user = new UserApi(apiKey);
-    }
-}
-
-interface LastFmInterface {
-    user: UserApi;
-}
+export { LastFm } from './client/lastfm';
+export { ApiClientError, ApiError } from './common/apiClient.types';
+export { Image, ImageSize, AttrPagination, Registered } from './api/common.types';
+export {
+    UserGetFriendsParams,
+    UserGetFriendsResponse,
+    UserGetInfoParams,
+    UserGetInfoResponse,
+    User,
+    SubscriberStatus,
+    UserType,
+} from './api/user/user.types';

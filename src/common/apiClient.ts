@@ -21,6 +21,6 @@ export class ApiClient implements ApiClientInterface {
     }
 }
 
-export type ApiClientInterface = Readonly<{
+export type ApiClientInterface = {
     get<ResponseType, ParamsType>(params: QueryParams<ParamsType>): Promise<ResponseType>;
-}>;
+};

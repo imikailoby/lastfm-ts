@@ -6,30 +6,28 @@ export enum UserApiMethods {
     GET_INFO = 'user.getInfo',
 }
 
-export type UserGetFriendsParams = Readonly<
-    PaginationQueryParams & {
-        user: string;
-    }
->;
+export type UserGetFriendsParams = PaginationQueryParams & {
+    user: string;
+};
 
-export type UserGetFriendsResponse = Readonly<{
+export type UserGetFriendsResponse = {
     friends: {
         '@attr': AttrPagination & {
             user: string;
         };
         user: Omit<User, 'age' | 'album_count' | 'artist_count' | 'gender' | 'track_count'>[];
     };
-}>;
+};
 
-export type UserGetInfoParams = Readonly<{
+export type UserGetInfoParams = {
     user?: string;
-}>;
+};
 
-export type UserGetInfoResponse = Readonly<{
+export type UserGetInfoResponse = {
     user: User;
-}>;
+};
 
-export type User = Readonly<{
+export type User = {
     age: string;
     album_count: string;
     artist_count: string;
@@ -46,7 +44,7 @@ export type User = Readonly<{
     track_count: string;
     type: UserType;
     url: string;
-}>;
+};
 
 export enum SubscriberStatus {
     INACTIVE = '0',

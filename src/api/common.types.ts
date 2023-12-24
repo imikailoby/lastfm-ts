@@ -1,7 +1,7 @@
-export type Image = Readonly<{
+export type Image = {
     size: ImageSize;
     '#text': string;
-}>;
+};
 
 export enum ImageSize {
     SMALL = 'small',
@@ -10,14 +10,14 @@ export enum ImageSize {
     EXTRA_LARGE = 'extralarge',
 }
 
-export type Registered = Readonly<{
+export type Registered = {
     unixtime: string;
     '#text': number;
-}>;
+};
 
-export type AttrPagination = Readonly<{
+export type AttrPagination = {
     page: string;
     perPage: string;
     total: string;
     totalPages: string;
-}>;
+};

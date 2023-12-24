@@ -1,9 +1,9 @@
-import { UserApi } from './api/user/user';
-import { LastFm } from './index';
+import { UserApi } from '../api/user/user';
+import { LastFm } from './lastfm';
 
 const mockedApiKey = 'test';
 
-describe('LastFm', () => {
+describe('LastFm client', () => {
     it('creates class instance', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm).toBeInstanceOf(LastFm);

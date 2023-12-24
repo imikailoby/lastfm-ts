@@ -1,7 +1,9 @@
-export type ApiClientError = Readonly<{
+import { UserApiMethods } from '../api/user/user.types';
+
+export type ApiClientError = {
     error: ApiError;
     message: string;
-}>;
+};
 
 export enum ApiError {
     INVALID_SERVICE = 2,
@@ -20,16 +22,16 @@ export enum ApiError {
     RATE_LIMIT_EXCEEDED = 29,
 }
 
-export type QueryParams<T> = Readonly<T & RequiredQueryParams>;
+export type QueryParams<T> = T & RequiredQueryParams;
 
-export type RequiredQueryParams = Readonly<{
+export type RequiredQueryParams = {
     method: ApiClientMethods;
     api_key: string;
-}>;
+};
 
-export type PaginationQueryParams = Readonly<{
+export type PaginationQueryParams = {
     limit?: string;
     page?: string;
-}>;
+};
 
-export type ApiClientMethods = Readonly<string>;
+export type ApiClientMethods = UserApiMethods;
