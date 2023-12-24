@@ -1,0 +1,19 @@
+# Directories
+node_modules
+src
+.yarn
+coverage
+.github
+
+# Logs
+yarn-debug.log*
+yarn-error.log*
+
+# Other
+.eslintrc
+.nvmrc
+.prettierrc
+jest.config.ts
+rollup.config.ts
+tsconfig.json
+.yarnrc.yml
