@@ -15,6 +15,8 @@ import {
     RecentTracksType,
     UserGetTopAlbumsParams,
     UserGetTopAlbumsResponse,
+    UserGetTopArtistsParams,
+    UserGetTopArtistsResponse,
 } from './user.types';
 
 export class UserApi extends LastFmApi implements UserApiInterface {
@@ -69,6 +71,14 @@ export class UserApi extends LastFmApi implements UserApiInterface {
             ...params,
         });
     }
+
+    public getTopArtists(params: UserGetTopArtistsParams): Promise<UserGetTopArtistsResponse> {
+        return this.apiClient.get<UserGetTopArtistsResponse, UserGetTopArtistsParams>({
+            method: UserApiMethods.GET_TOP_ARTISTS,
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
 }
 
 interface UserApiInterface {
@@ -80,4 +90,5 @@ interface UserApiInterface {
         params: UserGetRecentTracksParams,
     ) => Promise<UserGetRecentTracksResponse<T>>;
     getTopAlbums: (params: UserGetTopAlbumsParams) => Promise<UserGetTopAlbumsResponse>;
+    getTopArtists: (params: UserGetTopArtistsParams) => Promise<UserGetTopArtistsResponse>;
 }

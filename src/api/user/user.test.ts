@@ -218,4 +218,30 @@ describe('UserApi', () => {
             limit: '10',
         });
     });
+
+    it('getTopArtists()', async () => {
+        await userApi.getTopArtists({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_ARTISTS,
+            user: mockedUserName,
+        });
+
+        await userApi.getTopArtists({ user: mockedUserName, period: Period.SIX_MONTHS });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_ARTISTS,
+            user: mockedUserName,
+            period: Period.SIX_MONTHS,
+        });
+
+        await userApi.getTopArtists({ user: mockedUserName, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_ARTISTS,
+            user: mockedUserName,
+            page: '2',
+            limit: '10',
+        });
+    });
 });

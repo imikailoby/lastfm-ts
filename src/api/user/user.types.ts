@@ -11,6 +11,7 @@ export enum UserApiMethods {
     GET_PERSONAL_TAGS = 'user.getPersonalTags',
     GET_RECENT_TRACKS = 'user.getRecentTracks',
     GET_TOP_ALBUMS = 'user.getTopAlbums',
+    GET_TOP_ARTISTS = 'user.getTopArtists',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -191,6 +192,27 @@ export type UserTopAlbum = Pick<Album, 'image' | 'mbid' | 'name' | 'playcount' |
         rank: string;
     };
     artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+};
+
+export type UserGetTopArtistsParams = PaginationQueryParams & {
+    user: string;
+    period?: Period;
+};
+
+export interface UserGetTopArtistsResponse {
+    topartists: {
+        '@attr': AttrPagination & {
+            user: string;
+        };
+        artist: UserTopArtist[];
+    };
+}
+
+export type UserTopArtist = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'> & {
+    '@attr': {
+        rank: string;
+    };
+    playcount: string;
 };
 
 export type User = {
