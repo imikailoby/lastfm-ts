@@ -18,7 +18,9 @@ export {
     UserRecentTrackArtistExtended,
     UserTopAlbum,
     UserTopArtist,
+    UserTopTag,
 } from './api/user/user.types';
 export { Artist } from './api/artist/artist.types';
 export { Track, TrackArtist } from './api/track/track.types';
 export { Album } from './api/album/album.types';
+export { Tag } from './api/tag/tag.types';

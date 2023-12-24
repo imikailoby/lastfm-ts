@@ -244,4 +244,21 @@ describe('UserApi', () => {
             limit: '10',
         });
     });
+
+    it('getTopTags()', async () => {
+        await userApi.getTopTags({ user: mockedUserName });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_TAGS,
+            user: mockedUserName,
+        });
+
+        await userApi.getTopTags({ user: mockedUserName, limit: '20' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: UserApiMethods.GET_TOP_TAGS,
+            user: mockedUserName,
+            limit: '20',
+        });
+    });
 });

@@ -2,6 +2,7 @@ import { PaginationQueryParams } from '../../common/apiClient.types';
 import { Album } from '../album/album.types';
 import { Artist } from '../artist/artist.types';
 import { AttrPagination, Image, Period, Registered, TaggingType, UtcDate } from '../common.types';
+import { Tag } from '../tag/tag.types';
 import { Track } from '../track/track.types';
 
 export enum UserApiMethods {
@@ -12,6 +13,7 @@ export enum UserApiMethods {
     GET_RECENT_TRACKS = 'user.getRecentTracks',
     GET_TOP_ALBUMS = 'user.getTopAlbums',
     GET_TOP_ARTISTS = 'user.getTopArtists',
+    GET_TOP_TAGS = 'user.getTopTags',
 }
 
 export type UserGetFriendsParams = PaginationQueryParams & {
@@ -213,6 +215,25 @@ export type UserTopArtist = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'> & {
         rank: string;
     };
     playcount: string;
+};
+
+export type UserGetTopTagsParams = {
+    user: string;
+    limit?: string;
+};
+
+export interface UserGetTopTagsResponse {
+    toptags: {
+        '@attr': {
+            user: string;
+        };
+        tag: UserTopTag[];
+    };
+}
+
+export type UserTopTag = Pick<Tag, 'name'> & {
+    count: string;
+    url: string;
 };
 
 export type User = {
