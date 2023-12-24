@@ -1,16 +1,7 @@
 export type Image = {
-    size: ImageSize;
+    size: 'small' | 'medium' | 'large' | 'extralarge' | 'mega' | '';
     '#text': string;
 };
-
-export enum ImageSize {
-    SMALL = 'small',
-    MEDIUM = 'medium',
-    LARGE = 'large',
-    EXTRA_LARGE = 'extralarge',
-    MEGA = 'mega',
-    UNKNOWN = '',
-}
 
 export type Registered = {
     unixtime: string;
@@ -29,17 +20,6 @@ export type AttrPagination = {
     totalPages: string;
 };
 
-export enum TaggingType {
-    ARTIST = 'artist',
-    ALBUM = 'album',
-    TRACK = 'track',
-}
+export type TaggingType = 'artist' | 'album' | 'track';
 
-export enum Period {
-    OVERALL = 'overall',
-    WEEK = '7day',
-    MONTH = '1month',
-    THREE_MONTHS = '3month',
-    SIX_MONTHS = '6month',
-    YEAR = '12month',
-}
+export type Period = 'overall' | '7day' | '1month' | '3month' | '6month' | '12month';

@@ -1,5 +1,3 @@
-import { UserApiMethods } from '../api/user/user.types';
-
 export type ApiClientError = {
     error: ApiError;
     message: string;
@@ -25,7 +23,7 @@ export enum ApiError {
 export type QueryParams<T> = T & RequiredQueryParams;
 
 export type RequiredQueryParams = {
-    method: ApiClientMethods;
+    method: string;
     api_key: string;
 };
 
@@ -33,5 +31,3 @@ export type PaginationQueryParams = {
     limit?: string;
     page?: string;
 };
-
-export type ApiClientMethods = UserApiMethods;

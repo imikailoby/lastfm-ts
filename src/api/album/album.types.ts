@@ -1,4 +1,4 @@
-import { Image } from '../common.types';
+import type { Image } from '../common.types';
 
 export type Album = {
     artist: string;

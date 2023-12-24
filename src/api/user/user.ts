@@ -1,12 +1,9 @@
-import { TaggingType } from '../common.types';
+import type { TaggingType } from '../common.types';
 import { LastFmApi } from '../lastFmApi';
-import {
-    UserApiMethods,
+import type {
     UserGetFriendsParams,
     UserGetFriendsResponse,
     UserGetLovedTracksParams,
-    type UserGetInfoParams,
-    type UserGetInfoResponse,
     UserGetLovedTracksResponse,
     UserGetPersonalTagsParams,
     UserGetPersonalTagsResponse,
@@ -27,12 +24,14 @@ import {
     UserGetWeeklyArtistChartResponse,
     UserGetWeeklyArtistTrackParams,
     UserGetWeeklyArtistTrackResponse,
+    UserGetInfoParams,
+    UserGetInfoResponse,
 } from './user.types';
 
 export class UserApi extends LastFmApi implements UserApiInterface {
     public getFriends(params: UserGetFriendsParams): Promise<UserGetFriendsResponse> {
         return this.apiClient.get<UserGetFriendsResponse, UserGetFriendsParams>({
-            method: UserApiMethods.GET_FIRENDS,
+            method: 'user.getFriends',
             api_key: this.apiKey,
             ...params,
         });
@@ -40,7 +39,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getInfo(params: UserGetInfoParams): Promise<UserGetInfoResponse> {
         return this.apiClient.get<UserGetInfoResponse, UserGetInfoParams>({
-            method: UserApiMethods.GET_INFO,
+            method: 'user.getInfo',
             api_key: this.apiKey,
             ...params,
         });
@@ -48,7 +47,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getLovedTracks(params: UserGetLovedTracksParams): Promise<UserGetLovedTracksResponse> {
         return this.apiClient.get<UserGetLovedTracksResponse, UserGetLovedTracksParams>({
-            method: UserApiMethods.GET_LOVED_TRACKS,
+            method: 'user.getLovedTracks',
             api_key: this.apiKey,
             ...params,
         });
@@ -58,7 +57,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
         params: UserGetPersonalTagsParams,
     ): Promise<UserGetPersonalTagsResponse<T>> {
         return this.apiClient.get<UserGetPersonalTagsResponse<T>, UserGetPersonalTagsParams>({
-            method: UserApiMethods.GET_PERSONAL_TAGS,
+            method: 'user.getPersonalTags',
             api_key: this.apiKey,
             ...params,
         });
@@ -68,7 +67,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
         params: UserGetRecentTracksParams,
     ): Promise<UserGetRecentTracksResponse<T>> {
         return this.apiClient.get<UserGetRecentTracksResponse<T>, UserGetRecentTracksParams>({
-            method: UserApiMethods.GET_RECENT_TRACKS,
+            method: 'user.getRecentTracks',
             api_key: this.apiKey,
             ...params,
         });
@@ -76,7 +75,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getTopAlbums(params: UserGetTopAlbumsParams): Promise<UserGetTopAlbumsResponse> {
         return this.apiClient.get<UserGetTopAlbumsResponse, UserGetTopAlbumsParams>({
-            method: UserApiMethods.GET_TOP_ALBUMS,
+            method: 'user.getTopAlbums',
             api_key: this.apiKey,
             ...params,
         });
@@ -84,7 +83,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getTopArtists(params: UserGetTopArtistsParams): Promise<UserGetTopArtistsResponse> {
         return this.apiClient.get<UserGetTopArtistsResponse, UserGetTopArtistsParams>({
-            method: UserApiMethods.GET_TOP_ARTISTS,
+            method: 'user.getTopArtists',
             api_key: this.apiKey,
             ...params,
         });
@@ -92,7 +91,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getTopTags(params: UserGetTopTagsParams): Promise<UserGetTopTagsResponse> {
         return this.apiClient.get<UserGetTopTagsResponse, UserGetTopTagsParams>({
-            method: UserApiMethods.GET_TOP_TAGS,
+            method: 'user.getTopTags',
             api_key: this.apiKey,
             ...params,
         });
@@ -100,7 +99,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getTopTracks(params: UserGetTopTracksParams): Promise<UserGetTopTracksResponse> {
         return this.apiClient.get<UserGetTopTracksResponse, UserGetTopTracksParams>({
-            method: UserApiMethods.GET_TOP_TRACKS,
+            method: 'user.getTopTracks',
             api_key: this.apiKey,
             ...params,
         });
@@ -108,7 +107,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getWeeklyAlbumChart(params: UserGetWeeklyAlbumChartParams): Promise<UserGetWeeklyAlbumChartResponse> {
         return this.apiClient.get<UserGetWeeklyAlbumChartResponse, UserGetWeeklyAlbumChartParams>({
-            method: UserApiMethods.GET_WEEKLY_ALBUM_CHART,
+            method: 'user.getWeeklyAlbumChart',
             api_key: this.apiKey,
             ...params,
         });
@@ -116,7 +115,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getWeeklyArtistChart(params: UserGetWeeklyArtistChartParams): Promise<UserGetWeeklyArtistChartResponse> {
         return this.apiClient.get<UserGetWeeklyArtistChartResponse, UserGetWeeklyArtistChartParams>({
-            method: UserApiMethods.GET_WEEKLY_ARTIST_CHART,
+            method: 'user.getWeeklyArtistChart',
             api_key: this.apiKey,
             ...params,
         });
@@ -124,7 +123,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
     public getWeeklyTrackChart(params: UserGetWeeklyArtistTrackParams): Promise<UserGetWeeklyArtistTrackResponse> {
         return this.apiClient.get<UserGetWeeklyArtistTrackResponse, UserGetWeeklyArtistTrackParams>({
-            method: UserApiMethods.GET_WEEKLY_TRACK_CHART,
+            method: 'user.getWeeklyTrackChart',
             api_key: this.apiKey,
             ...params,
         });

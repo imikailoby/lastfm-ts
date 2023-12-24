@@ -1,24 +1,9 @@
-import { PaginationQueryParams } from '../../common/apiClient.types';
-import { Album } from '../album/album.types';
-import { Artist } from '../artist/artist.types';
-import { AttrPagination, Image, Period, Registered, TaggingType, UtcDate } from '../common.types';
-import { Tag } from '../tag/tag.types';
-import { Track } from '../track/track.types';
-
-export enum UserApiMethods {
-    GET_FIRENDS = 'user.getFriends',
-    GET_INFO = 'user.getInfo',
-    GET_LOVED_TRACKS = 'user.getLovedTracks',
-    GET_PERSONAL_TAGS = 'user.getPersonalTags',
-    GET_RECENT_TRACKS = 'user.getRecentTracks',
-    GET_TOP_ALBUMS = 'user.getTopAlbums',
-    GET_TOP_ARTISTS = 'user.getTopArtists',
-    GET_TOP_TAGS = 'user.getTopTags',
-    GET_TOP_TRACKS = 'user.getTopTracks',
-    GET_WEEKLY_ALBUM_CHART = 'user.getWeeklyAlbumChart',
-    GET_WEEKLY_ARTIST_CHART = 'user.getWeeklyArtistChart',
-    GET_WEEKLY_TRACK_CHART = 'user.getWeeklyTrackChart',
-}
+import type { PaginationQueryParams } from '../../common/apiClient.types';
+import type { Album } from '../album/album.types';
+import type { Artist } from '../artist/artist.types';
+import type { AttrPagination, Image, Period, Registered, TaggingType, UtcDate } from '../common.types';
+import type { Tag } from '../tag/tag.types';
+import type { Track } from '../track/track.types';
 
 export type UserGetFriendsParams = PaginationQueryParams & {
     user: string;
@@ -29,24 +14,22 @@ export type UserGetFriendsResponse = {
         '@attr': AttrPagination & {
             user: string;
         };
-        user: UserFriend[];
+        user: Pick<
+            User,
+            | 'bootstrap'
+            | 'country'
+            | 'image'
+            | 'name'
+            | 'playcount'
+            | 'playlists'
+            | 'realname'
+            | 'registered'
+            | 'subscriber'
+            | 'type'
+            | 'url'
+        >[];
     };
 };
-
-export type UserFriend = Pick<
-    User,
-    | 'bootstrap'
-    | 'country'
-    | 'image'
-    | 'name'
-    | 'playcount'
-    | 'playlists'
-    | 'realname'
-    | 'registered'
-    | 'subscriber'
-    | 'type'
-    | 'url'
->;
 
 export type UserGetInfoParams = {
     user?: string;
@@ -65,13 +48,11 @@ export type UserGetLovedTracksResponse = {
         '@attr': AttrPagination & {
             user: string;
         };
-        track: UserLovedTrack[];
+        track: (Pick<Track, 'artist' | 'name' | 'mbid' | 'url'> & {
+            date: UtcDate;
+            image: Image[];
+        })[];
     };
-};
-
-export type UserLovedTrack = Pick<Track, 'artist' | 'name' | 'mbid' | 'url'> & {
-    date: UtcDate;
-    image: Image[];
 };
 
 export type UserGetPersonalTagsParams = PaginationQueryParams & {
@@ -89,38 +70,32 @@ interface BaseUserGetPersonalTagsResponse {
 
 interface UserGetPersonalTagsAlbumsResponse extends BaseUserGetPersonalTagsResponse {
     albums: {
-        album: UserPersonalTagsAlbum[];
+        album: (Pick<Album, 'image' | 'mbid' | 'name' | 'url'> & {
+            artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+        })[];
     };
 }
-
-export type UserPersonalTagsAlbum = Pick<Album, 'image' | 'mbid' | 'name' | 'url'> & {
-    artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
-};
 
 interface UserGetPersonalTagsArtistsResponse extends BaseUserGetPersonalTagsResponse {
     artists: {
-        artist: UserPersonalTagsArtist[];
+        artist: Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>[];
     };
 }
-
-export type UserPersonalTagsArtist = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>;
 
 interface UserGetPersonalTagsTracksResponse extends BaseUserGetPersonalTagsResponse {
     tracks: {
-        track: UserPersonalTagsTrack[];
+        track: (Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'url'> & {
+            image: Image[];
+        })[];
     };
 }
 
-export type UserPersonalTagsTrack = Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'url'> & {
-    image: Image[];
-};
-
-export type UserGetPersonalTagsResponse<T> = {
-    taggings: T extends TaggingType.ALBUM
+export type UserGetPersonalTagsResponse<T = TaggingType> = {
+    taggings: T extends 'album'
         ? UserGetPersonalTagsAlbumsResponse
-        : T extends TaggingType.ARTIST
+        : T extends 'artist'
           ? UserGetPersonalTagsArtistsResponse
-          : T extends TaggingType.TRACK
+          : T extends 'track'
             ? UserGetPersonalTagsTracksResponse
             : BaseUserGetPersonalTagsResponse;
 };
@@ -144,40 +119,35 @@ interface BaseUserGetRecentTracksResponse {
 }
 
 interface UserGetRecentTracksResponseRegular extends BaseUserGetRecentTracksResponse {
-    track: UserRecentTrack[];
+    track: (Pick<Track, 'mbid' | 'name' | 'url'> & {
+        album: Pick<Album, 'mbid'> & {
+            '#text': string;
+        };
+        artist: Pick<Artist, 'mbid'> & {
+            '#text': string;
+        };
+        date: UtcDate;
+        image: Image[];
+    })[];
 }
 
 interface UserGetRecentTracksResponseExtended extends BaseUserGetRecentTracksResponse {
-    track: UserRecentTrackExtended[];
+    track: (Pick<Track, 'mbid' | 'name' | 'url'> & {
+        album: Pick<Album, 'mbid'> & {
+            '#text': string;
+        };
+        artist: Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>;
+        date: UtcDate;
+        image: Image[];
+        loved: string;
+    })[];
 }
 
-export type UserGetRecentTracksResponse<T = RecentTracksType.REGULAR> = {
+export type UserGetRecentTracksResponse<T = RecentTracksType> = {
     recenttracks: T extends RecentTracksType.EXTENDED
         ? UserGetRecentTracksResponseExtended
         : UserGetRecentTracksResponseRegular;
 };
-
-export type UserRecentTrack = Pick<Track, 'mbid' | 'name' | 'url'> & {
-    album: UserRecentTrackAlbum;
-    artist: UserRecentTrackArtist;
-    date: UtcDate;
-    image: Image[];
-};
-
-export type UserRecentTrackExtended = Omit<UserRecentTrack, 'artist'> & {
-    artist: UserRecentTrackArtistExtended;
-    loved: string;
-};
-
-export type UserRecentTrackAlbum = Pick<Album, 'mbid'> & {
-    '#text': string;
-};
-
-export type UserRecentTrackArtist = Pick<Artist, 'mbid'> & {
-    '#text': string;
-};
-
-export type UserRecentTrackArtistExtended = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'>;
 
 export type UserGetTopAlbumsParams = PaginationQueryParams & {
     user: string;
@@ -189,16 +159,14 @@ export interface UserGetTopAlbumsResponse {
         '@attr': AttrPagination & {
             user: string;
         };
-        album: UserTopAlbum[];
+        album: (Pick<Album, 'image' | 'mbid' | 'name' | 'playcount' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+        })[];
     };
 }
-
-export type UserTopAlbum = Pick<Album, 'image' | 'mbid' | 'name' | 'playcount' | 'url'> & {
-    '@attr': {
-        rank: string;
-    };
-    artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
-};
 
 export type UserGetTopArtistsParams = PaginationQueryParams & {
     user: string;
@@ -210,16 +178,14 @@ export interface UserGetTopArtistsResponse {
         '@attr': AttrPagination & {
             user: string;
         };
-        artist: UserTopArtist[];
+        artist: (Pick<Artist, 'image' | 'mbid' | 'name' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            playcount: string;
+        })[];
     };
 }
-
-export type UserTopArtist = Pick<Artist, 'image' | 'mbid' | 'name' | 'url'> & {
-    '@attr': {
-        rank: string;
-    };
-    playcount: string;
-};
 
 export type UserGetTopTagsParams = Pick<PaginationQueryParams, 'limit'> & {
     user: string;
@@ -230,14 +196,12 @@ export interface UserGetTopTagsResponse {
         '@attr': {
             user: string;
         };
-        tag: UserTopTag[];
+        tag: (Pick<Tag, 'name'> & {
+            count: string;
+            url: string;
+        })[];
     };
 }
-
-export type UserTopTag = Pick<Tag, 'name'> & {
-    count: string;
-    url: string;
-};
 
 export type UserGetTopTracksParams = PaginationQueryParams & {
     user: string;
@@ -249,16 +213,14 @@ export interface UserGetTopTracksResponse {
         '@attr': AttrPagination & {
             user: string;
         };
-        track: UserTopTrack[];
+        track: (Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'playcount' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            image: Image[];
+        })[];
     };
 }
-
-export type UserTopTrack = Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'playcount' | 'url'> & {
-    '@attr': {
-        rank: string;
-    };
-    image: Image[];
-};
 
 export type UserGetWeeklyAlbumChartParams = {
     user: string;
@@ -273,20 +235,16 @@ export interface UserGetWeeklyAlbumChartResponse {
             to: string;
             user: string;
         };
-        album: UserWeeklyAlbum[];
+        album: (Pick<Album, 'mbid' | 'name' | 'playcount' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            artist: Pick<Artist, 'mbid'> & {
+                '#text': string;
+            };
+        })[];
     };
 }
-
-export type UserWeeklyAlbum = Pick<Album, 'mbid' | 'name' | 'playcount' | 'url'> & {
-    '@attr': {
-        rank: string;
-    };
-    artist: UserWeeklyAlbumArtist;
-};
-
-export type UserWeeklyAlbumArtist = Pick<Artist, 'mbid'> & {
-    '#text': string;
-};
 
 export type UserGetWeeklyArtistChartParams = {
     user: string;
@@ -301,16 +259,14 @@ export interface UserGetWeeklyArtistChartResponse {
             to: string;
             user: string;
         };
-        artist: UserWeeklyArtist[];
+        artist: (Pick<Artist, 'mbid' | 'name' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            playcount: string;
+        })[];
     };
 }
-
-export type UserWeeklyArtist = Pick<Artist, 'mbid' | 'name' | 'url'> & {
-    '@attr': {
-        rank: string;
-    };
-    playcount: string;
-};
 
 export type UserGetWeeklyArtistTrackParams = {
     user: string;
@@ -325,21 +281,17 @@ export interface UserGetWeeklyArtistTrackResponse {
             to: string;
             user: string;
         };
-        artist: UserWeeklyTrack[];
+        artist: (Pick<Track, 'mbid' | 'name' | 'playcount' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            artist: Pick<Artist, 'mbid'> & {
+                '#text': string;
+            };
+            image: Image[];
+        })[];
     };
 }
-
-export type UserWeeklyTrack = Pick<Track, 'mbid' | 'name' | 'playcount' | 'url'> & {
-    '@attr': {
-        rank: string;
-    };
-    artist: UserWeeklyTrackArtist;
-    image: Image[];
-};
-
-export type UserWeeklyTrackArtist = Pick<Artist, 'mbid'> & {
-    '#text': string;
-};
 
 export type User = {
     age: string;
@@ -354,20 +306,8 @@ export type User = {
     playlists: string;
     realname: string;
     registered: Registered;
-    subscriber: SubscriberStatus;
+    subscriber: '0' | '1';
     track_count: string;
-    type: UserType;
+    type: 'user' | 'subscriber' | 'alum' | 'staff';
     url: string;
 };
-
-export enum SubscriberStatus {
-    INACTIVE = '0',
-    ACTIVE = '1',
-}
-
-export enum UserType {
-    USER = 'user',
-    SUBSCRIBER = 'subscriber',
-    ALUM = 'alum',
-    STAFF = 'staff',
-}

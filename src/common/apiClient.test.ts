@@ -1,6 +1,6 @@
 import { API_ENDPOINT, API_VERSION } from '../constants/global';
 import { ApiClient } from './apiClient';
-import { ApiClientMethods, RequiredQueryParams } from './apiClient.types';
+import type { RequiredQueryParams } from './apiClient.types';
 
 const okResponse = {
     json: () => Promise.resolve({}),
@@ -15,7 +15,7 @@ const errorResponse = {
 const mockedBaseUrl = `${API_ENDPOINT}/${API_VERSION}`;
 
 const mockedRequiredParams: RequiredQueryParams = {
-    method: 'test' as ApiClientMethods,
+    method: 'test',
     api_key: 'testkey',
 };
 

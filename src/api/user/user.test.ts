@@ -1,7 +1,6 @@
 import { ApiClient } from '../../common/apiClient';
-import { Period, TaggingType } from '../common.types';
 import { UserApi } from './user';
-import { RecentTracksType, UserApiMethods } from './user.types';
+import { RecentTracksType } from './user.types';
 
 jest.mock('../../common/apiClient');
 
@@ -26,14 +25,14 @@ describe('UserApi', () => {
         await userApi.getInfo({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_INFO,
+            method: 'user.getInfo',
             user: mockedUserName,
         });
 
         await userApi.getInfo({});
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_INFO,
+            method: 'user.getInfo',
         });
     });
 
@@ -41,14 +40,14 @@ describe('UserApi', () => {
         await userApi.getFriends({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_FIRENDS,
+            method: 'user.getFriends',
             user: mockedUserName,
         });
 
         await userApi.getFriends({ user: mockedUserName, page: '2' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_FIRENDS,
+            method: 'user.getFriends',
             user: mockedUserName,
             page: '2',
         });
@@ -56,7 +55,7 @@ describe('UserApi', () => {
         await userApi.getFriends({ user: mockedUserName, limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_FIRENDS,
+            method: 'user.getFriends',
             user: mockedUserName,
             limit: '10',
         });
@@ -64,7 +63,7 @@ describe('UserApi', () => {
         await userApi.getFriends({ user: mockedUserName, page: '2', limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(4, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_FIRENDS,
+            method: 'user.getFriends',
             user: mockedUserName,
             page: '2',
             limit: '10',
@@ -75,14 +74,14 @@ describe('UserApi', () => {
         await userApi.getLovedTracks({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_LOVED_TRACKS,
+            method: 'user.getLovedTracks',
             user: mockedUserName,
         });
 
         await userApi.getLovedTracks({ user: mockedUserName, page: '2' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_LOVED_TRACKS,
+            method: 'user.getLovedTracks',
             user: mockedUserName,
             page: '2',
         });
@@ -90,7 +89,7 @@ describe('UserApi', () => {
         await userApi.getLovedTracks({ user: mockedUserName, limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_LOVED_TRACKS,
+            method: 'user.getLovedTracks',
             user: mockedUserName,
             limit: '10',
         });
@@ -98,7 +97,7 @@ describe('UserApi', () => {
         await userApi.getLovedTracks({ user: mockedUserName, page: '2', limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(4, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_LOVED_TRACKS,
+            method: 'user.getLovedTracks',
             user: mockedUserName,
             page: '2',
             limit: '10',
@@ -106,38 +105,38 @@ describe('UserApi', () => {
     });
 
     it('getLovedTracks()', async () => {
-        await userApi.getPersonalTags({ user: mockedUserName, tag: 'rock', taggingtype: TaggingType.ALBUM });
+        await userApi.getPersonalTags({ user: mockedUserName, tag: 'rock', taggingtype: 'album' });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_PERSONAL_TAGS,
+            method: 'user.getPersonalTags',
             user: mockedUserName,
             tag: 'rock',
-            taggingtype: TaggingType.ALBUM,
+            taggingtype: 'album',
         });
 
-        await userApi.getPersonalTags({ user: mockedUserName, page: '2', tag: 'rap', taggingtype: TaggingType.ARTIST });
+        await userApi.getPersonalTags({ user: mockedUserName, page: '2', tag: 'rap', taggingtype: 'artist' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_PERSONAL_TAGS,
+            method: 'user.getPersonalTags',
             user: mockedUserName,
             page: '2',
             tag: 'rap',
-            taggingtype: TaggingType.ARTIST,
+            taggingtype: 'artist',
         });
 
         await userApi.getPersonalTags({
             user: mockedUserName,
             limit: '10',
             tag: 'jazz',
-            taggingtype: TaggingType.TRACK,
+            taggingtype: 'track',
         });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_PERSONAL_TAGS,
+            method: 'user.getPersonalTags',
             user: mockedUserName,
             limit: '10',
             tag: 'jazz',
-            taggingtype: TaggingType.TRACK,
+            taggingtype: 'track',
         });
 
         await userApi.getPersonalTags({
@@ -145,16 +144,16 @@ describe('UserApi', () => {
             page: '2',
             limit: '10',
             tag: 'pop',
-            taggingtype: TaggingType.ALBUM,
+            taggingtype: 'album',
         });
         expect(mockedGet).toHaveBeenNthCalledWith(4, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_PERSONAL_TAGS,
+            method: 'user.getPersonalTags',
             user: mockedUserName,
             page: '2',
             limit: '10',
             tag: 'pop',
-            taggingtype: TaggingType.ALBUM,
+            taggingtype: 'album',
         });
     });
 
@@ -162,14 +161,14 @@ describe('UserApi', () => {
         await userApi.getRecentTracks({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_RECENT_TRACKS,
+            method: 'user.getRecentTracks',
             user: mockedUserName,
         });
 
         await userApi.getRecentTracks({ user: mockedUserName, extended: RecentTracksType.EXTENDED });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_RECENT_TRACKS,
+            method: 'user.getRecentTracks',
             user: mockedUserName,
             extended: RecentTracksType.EXTENDED,
         });
@@ -177,7 +176,7 @@ describe('UserApi', () => {
         await userApi.getRecentTracks({ user: mockedUserName, from: '1640995200', to: '1643760000' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_RECENT_TRACKS,
+            method: 'user.getRecentTracks',
             user: mockedUserName,
             from: '1640995200',
             to: '1643760000',
@@ -186,7 +185,7 @@ describe('UserApi', () => {
         await userApi.getRecentTracks({ user: mockedUserName, page: '2', limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(4, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_RECENT_TRACKS,
+            method: 'user.getRecentTracks',
             user: mockedUserName,
             page: '2',
             limit: '10',
@@ -197,22 +196,22 @@ describe('UserApi', () => {
         await userApi.getTopAlbums({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_ALBUMS,
+            method: 'user.getTopAlbums',
             user: mockedUserName,
         });
 
-        await userApi.getTopAlbums({ user: mockedUserName, period: Period.SIX_MONTHS });
+        await userApi.getTopAlbums({ user: mockedUserName, period: '6month' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_ALBUMS,
+            method: 'user.getTopAlbums',
             user: mockedUserName,
-            period: Period.SIX_MONTHS,
+            period: '6month',
         });
 
         await userApi.getTopAlbums({ user: mockedUserName, page: '2', limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_ALBUMS,
+            method: 'user.getTopAlbums',
             user: mockedUserName,
             page: '2',
             limit: '10',
@@ -223,22 +222,22 @@ describe('UserApi', () => {
         await userApi.getTopArtists({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_ARTISTS,
+            method: 'user.getTopArtists',
             user: mockedUserName,
         });
 
-        await userApi.getTopArtists({ user: mockedUserName, period: Period.SIX_MONTHS });
+        await userApi.getTopArtists({ user: mockedUserName, period: '6month' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_ARTISTS,
+            method: 'user.getTopArtists',
             user: mockedUserName,
-            period: Period.SIX_MONTHS,
+            period: '6month',
         });
 
         await userApi.getTopArtists({ user: mockedUserName, page: '2', limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_ARTISTS,
+            method: 'user.getTopArtists',
             user: mockedUserName,
             page: '2',
             limit: '10',
@@ -249,14 +248,14 @@ describe('UserApi', () => {
         await userApi.getTopTags({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_TAGS,
+            method: 'user.getTopTags',
             user: mockedUserName,
         });
 
         await userApi.getTopTags({ user: mockedUserName, limit: '20' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_TAGS,
+            method: 'user.getTopTags',
             user: mockedUserName,
             limit: '20',
         });
@@ -266,22 +265,22 @@ describe('UserApi', () => {
         await userApi.getTopTracks({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_TRACKS,
+            method: 'user.getTopTracks',
             user: mockedUserName,
         });
 
-        await userApi.getTopTracks({ user: mockedUserName, period: Period.SIX_MONTHS });
+        await userApi.getTopTracks({ user: mockedUserName, period: '6month' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_TRACKS,
+            method: 'user.getTopTracks',
             user: mockedUserName,
-            period: Period.SIX_MONTHS,
+            period: '6month',
         });
 
         await userApi.getTopTracks({ user: mockedUserName, page: '2', limit: '10' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_TOP_TRACKS,
+            method: 'user.getTopTracks',
             user: mockedUserName,
             page: '2',
             limit: '10',
@@ -292,14 +291,14 @@ describe('UserApi', () => {
         await userApi.getWeeklyAlbumChart({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_WEEKLY_ALBUM_CHART,
+            method: 'user.getWeeklyAlbumChart',
             user: mockedUserName,
         });
 
         await userApi.getWeeklyAlbumChart({ user: mockedUserName, from: '1640995200', to: '1643760000' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_WEEKLY_ALBUM_CHART,
+            method: 'user.getWeeklyAlbumChart',
             user: mockedUserName,
             from: '1640995200',
             to: '1643760000',
@@ -310,14 +309,14 @@ describe('UserApi', () => {
         await userApi.getWeeklyArtistChart({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_WEEKLY_ARTIST_CHART,
+            method: 'user.getWeeklyArtistChart',
             user: mockedUserName,
         });
 
         await userApi.getWeeklyArtistChart({ user: mockedUserName, from: '1640995200', to: '1643760000' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_WEEKLY_ARTIST_CHART,
+            method: 'user.getWeeklyArtistChart',
             user: mockedUserName,
             from: '1640995200',
             to: '1643760000',
@@ -328,14 +327,14 @@ describe('UserApi', () => {
         await userApi.getWeeklyTrackChart({ user: mockedUserName });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_WEEKLY_TRACK_CHART,
+            method: 'user.getWeeklyTrackChart',
             user: mockedUserName,
         });
 
         await userApi.getWeeklyTrackChart({ user: mockedUserName, from: '1640995200', to: '1643760000' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
-            method: UserApiMethods.GET_WEEKLY_TRACK_CHART,
+            method: 'user.getWeeklyTrackChart',
             user: mockedUserName,
             from: '1640995200',
             to: '1643760000',

@@ -21,6 +21,8 @@
     ],
     "license": "MIT",
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-node-resolve": "^15.2.3",
         "@rollup/plugin-terser": "^0.4.4",
         "@types/jest": "^29.5.11",
         "@types/node": "^20.10.5",

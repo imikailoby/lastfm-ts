@@ -1,10 +1,9 @@
-import { ApiClientMethods } from './apiClient.types';
 import { getRequestUrlParams } from './helpers';
 
 describe('helpers', () => {
     it('getRequestUrlParams()', () => {
         const params = getRequestUrlParams({
-            method: 'test' as ApiClientMethods,
+            method: 'test',
             api_key: '123',
         });
 

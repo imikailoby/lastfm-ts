@@ -2,7 +2,7 @@ import type { Artist } from '../artist/artist.types';
 
 export type Track = {
     album: unknown;
-    artist: TrackArtist;
+    artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
     duration: string;
     listeners: string;
     mbid: string;
@@ -12,5 +12,3 @@ export type Track = {
     url: string;
     wiki: unknown;
 };
-
-export type TrackArtist = Pick<Artist, 'mbid' | 'name' | 'url'>;
