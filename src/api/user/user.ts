@@ -23,6 +23,8 @@ import {
     UserGetTopTracksResponse,
     UserGetWeeklyAlbumChartParams,
     UserGetWeeklyAlbumChartResponse,
+    UserGetWeeklyArtistChartParams,
+    UserGetWeeklyArtistChartResponse,
 } from './user.types';
 
 export class UserApi extends LastFmApi implements UserApiInterface {
@@ -109,6 +111,14 @@ export class UserApi extends LastFmApi implements UserApiInterface {
             ...params,
         });
     }
+
+    public getWeeklyArtistChart(params: UserGetWeeklyArtistChartParams): Promise<UserGetWeeklyArtistChartResponse> {
+        return this.apiClient.get<UserGetWeeklyArtistChartResponse, UserGetWeeklyArtistChartParams>({
+            method: UserApiMethods.GET_WEEKLY_ARTIST_CHART,
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
 }
 
 interface UserApiInterface {
@@ -124,4 +134,5 @@ interface UserApiInterface {
     getTopTags: (params: UserGetTopTagsParams) => Promise<UserGetTopTagsResponse>;
     getTopTracks: (params: UserGetTopTracksParams) => Promise<UserGetTopTracksResponse>;
     getWeeklyAlbumChart: (params: UserGetWeeklyAlbumChartParams) => Promise<UserGetWeeklyAlbumChartResponse>;
+    getWeeklyArtistChart: (params: UserGetWeeklyArtistChartParams) => Promise<UserGetWeeklyArtistChartResponse>;
 }
