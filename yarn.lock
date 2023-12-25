@@ -491,9 +491,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@imikailoby/lastfm@workspace:.":
+"@imikailoby/lastfm-ts@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@imikailoby/lastfm@workspace:."
+  resolution: "@imikailoby/lastfm-ts@workspace:."
   dependencies:
     "@rollup/plugin-commonjs": "npm:^25.0.7"
     "@rollup/plugin-node-resolve": "npm:^15.2.3"

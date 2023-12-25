@@ -1,11 +1,11 @@
 {
-    "name": "@imikailoby/lastfm",
-    "version": "0.11.0",
+    "name": "@imikailoby/lastfm-ts",
+    "version": "1.0.0",
     "description": "Last.fm API client",
     "author": "Mikhail Prosmitskiy",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/imikailoby/lastfm.git"
+        "url": "git+https://github.com/imikailoby/lastfm-ts.git"
     },
     "main": "dist/index.min.js",
     "types": "dist/index.min.d.js",

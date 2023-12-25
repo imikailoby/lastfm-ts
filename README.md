@@ -1,4 +1,4 @@
-# @imikailoby/lastfm
+# @imikailoby/lastfm-ts
 
 [Last.fm API](https://www.last.fm/api) client.
 
