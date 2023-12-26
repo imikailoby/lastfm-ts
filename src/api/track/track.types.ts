@@ -1,4 +1,5 @@
 import type { Artist } from '../artist/artist.types';
+import type { Wiki } from '../common.types';
 
 export type Track = {
     album: unknown;
@@ -10,5 +11,5 @@ export type Track = {
     playcount: string;
     toptags: unknown[];
     url: string;
-    wiki: unknown;
+    wiki: Wiki;
 };

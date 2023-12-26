@@ -1,4 +1,4 @@
-import type { Image } from '../common.types';
+import type { Image, Wiki } from '../common.types';
 
 export type Album = {
     artist: string;
@@ -10,5 +10,5 @@ export type Album = {
     tags: unknown[];
     tracks: unknown[];
     url: string;
-    wiki: unknown;
+    wiki: Wiki;
 };

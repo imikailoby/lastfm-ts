@@ -23,3 +23,9 @@ export type AttrPagination = {
 export type TaggingType = 'artist' | 'album' | 'track';
 
 export type Period = 'overall' | '7day' | '1month' | '3month' | '6month' | '12month';
+
+export type Wiki = {
+    content: string;
+    published: string;
+    summary: string;
+};

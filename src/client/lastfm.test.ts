@@ -3,6 +3,7 @@ import { LibraryApi } from '../api/library/library';
 import { UserApi } from '../api/user/user';
 import { ChartApi } from '../api/chart/chart';
 import { LastFm } from './lastfm';
+import { TagApi } from '../api/tag/tag';
 
 const mockedApiKey = 'test';
 
@@ -30,5 +31,10 @@ describe('LastFm client', () => {
     it('it chart methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.chart).toBeInstanceOf(ChartApi);
+    });
+
+    it('it tag methods', () => {
+        const lastFm = new LastFm(mockedApiKey);
+        expect(lastFm.tag).toBeInstanceOf(TagApi);
     });
 });
