@@ -70,4 +70,38 @@ describe('TagApi', () => {
             limit: '10',
         });
     });
+
+    it('getTopArtists()', async () => {
+        await tagApi.getTopArtists({ tag: mockedTag });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopArtists',
+            tag: mockedTag,
+        });
+
+        await tagApi.getTopArtists({ tag: mockedTag, page: '2' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopArtists',
+            tag: mockedTag,
+            page: '2',
+        });
+
+        await tagApi.getTopArtists({ tag: mockedTag, limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopArtists',
+            tag: mockedTag,
+            limit: '10',
+        });
+
+        await tagApi.getTopArtists({ tag: mockedTag, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopArtists',
+            tag: mockedTag,
+            page: '2',
+            limit: '10',
+        });
+    });
 });

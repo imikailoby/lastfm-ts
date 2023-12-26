@@ -1,5 +1,12 @@
 import { LastFmApi } from '../lastFmApi';
-import type { TagGetInfoParams, TagGetInfoResponse, TagGetTopAlbumsParams, TagGetTopAlbumsResponse } from './tag.types';
+import type {
+    TagGetInfoParams,
+    TagGetInfoResponse,
+    TagGetTopAlbumsParams,
+    TagGetTopAlbumsResponse,
+    TagGetTopArtistsParams,
+    TagGetTopArtistsResponse,
+} from './tag.types';
 
 export class TagApi extends LastFmApi implements TagApiInterface {
     public getInfo(params: TagGetInfoParams): Promise<TagGetInfoResponse> {
@@ -17,9 +24,18 @@ export class TagApi extends LastFmApi implements TagApiInterface {
             ...params,
         });
     }
+
+    public getTopArtists(params: TagGetTopArtistsParams): Promise<TagGetTopArtistsResponse> {
+        return this.apiClient.get<TagGetTopArtistsResponse, TagGetTopArtistsParams>({
+            method: 'tag.getTopArtists',
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
 }
 
 interface TagApiInterface {
     getInfo: (params: TagGetInfoParams) => Promise<TagGetInfoResponse>;
     getTopAlbums: (params: TagGetTopAlbumsParams) => Promise<TagGetTopAlbumsResponse>;
+    getTopArtists(params: TagGetTopArtistsParams): Promise<TagGetTopArtistsResponse>;
 }

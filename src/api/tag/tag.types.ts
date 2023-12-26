@@ -23,7 +23,24 @@ export type TagGetTopAlbumsResponse = {
         };
         album: (Pick<Album, 'image' | 'mbid' | 'name' | 'url'> & {
             '@attr': {
-                artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+                rank: string;
+            };
+            artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
+        })[];
+    };
+};
+
+export type TagGetTopArtistsParams = PaginationQueryParams & {
+    tag: string;
+};
+
+export type TagGetTopArtistsResponse = {
+    topartists: {
+        '@attr': AttrPagination & {
+            tag: string;
+        };
+        artist: (Pick<Artist, 'image' | 'mbid' | 'name' | 'url'> & {
+            '@attr': {
                 rank: string;
             };
         })[];
