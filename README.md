@@ -59,7 +59,7 @@ lastFm.user.getPersonalTags<'artist'>({ user: 'imikailoby', taggingtype: 'artist
 -   [ ] `artist` methods
 -   [ ] `auth` methods
 -   [ ] `chart` methods
--   [ ] `geo` methods
+-   [x] `geo` methods
 -   [x] `library` methods
 -   [ ] `tag` methods
 -   [ ] `track` methods
