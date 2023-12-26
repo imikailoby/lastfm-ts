@@ -36,4 +36,38 @@ describe('TagApi', () => {
             lang: 'es',
         });
     });
+
+    it('getTopAlbums()', async () => {
+        await tagApi.getTopAlbums({ tag: mockedTag });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopAlbums',
+            tag: mockedTag,
+        });
+
+        await tagApi.getTopAlbums({ tag: mockedTag, page: '2' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopAlbums',
+            tag: mockedTag,
+            page: '2',
+        });
+
+        await tagApi.getTopAlbums({ tag: mockedTag, limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopAlbums',
+            tag: mockedTag,
+            limit: '10',
+        });
+
+        await tagApi.getTopAlbums({ tag: mockedTag, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopAlbums',
+            tag: mockedTag,
+            page: '2',
+            limit: '10',
+        });
+    });
 });

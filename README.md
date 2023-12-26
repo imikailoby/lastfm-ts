@@ -74,10 +74,14 @@ In the first version, only methods that do not require authentication will be im
 
 Some insights into specific feature implementations, highlighting discrepancies between the Last.fm API's documented and actual behaviors as of the dates mentioned.
 
--   **24.12.2023** | `user.getFriends()` does not have the `recenttracks` param despite it being present in the documentation. [Reason why](https://support.last.fm/t/friends-recent-listening-is-not-returned-with-user-getfriends-method/5825).
+It may also be useful to check the [support forum](https://support.last.fm/c/support/api/47) for questions and issues regarding the API.
 
--   **24.12.2023** | The API returns the `streamable` attribute for some objects, but their interfaces do not have this attribute. [Reason why](https://support.last.fm/t/is-the-streamable-attribute-broken-it-always-returns-0/39723/1).
+-   `user.getFriends()` does not have the `recenttracks` param despite it being present in the documentation. [Reason why](https://support.last.fm/t/friends-recent-listening-is-not-returned-with-user-getfriends-method/5825).
 
--   **24.12.2023** | `user` does not have the `getWeeklyChartList()` method despite it being present in the documentation. Looks like the method is dead. [More info](https://support.last.fm/t/user-getweeklychartlist-doesnt-return-the-latest-charts/7333/2).
+-   The API returns the `streamable` attribute for some objects, but their interfaces do not have this attribute. [Reason why](https://support.last.fm/t/is-the-streamable-attribute-broken-it-always-returns-0/39723/1).
 
--   **26.12.2023** | `geo.getTopTracks()` does not have the `location` param despite it being present in the documentation. [Reason why](https://support.last.fm/t/geo-gettoptracks-list-for-an-optional-location-metro/7446).
+-   `user` does not have the `getWeeklyChartList()` method despite it being present in the documentation. Looks like the method is dead. [More info](https://support.last.fm/t/user-getweeklychartlist-doesnt-return-the-latest-charts/7333/2).
+
+-   `geo.getTopTracks()` does not have the `location` param despite it being present in the documentation. [Reason why](https://support.last.fm/t/geo-gettoptracks-list-for-an-optional-location-metro/7446).
+
+-   `tag` does not have the `getSimilar()` method despite it being present in the documentation. The method does not work and has not been fixed since October 2020. [More info](https://support.last.fm/t/tag-getsimilar-returns-nothing/7188).
