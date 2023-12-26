@@ -53,17 +53,22 @@ lastFm.user.getPersonalTags<'artist'>({ user: 'imikailoby', taggingtype: 'artist
 });
 ```
 
-## TODO
+## Roadmap
 
--   [ ] `album` methods
--   [ ] `artist` methods
--   [ ] `auth` methods
+In the first version, only methods that do not require authentication will be implemented.
+
 -   [x] `chart` methods
 -   [x] `geo` methods
 -   [x] `library` methods
 -   [ ] `tag` methods
--   [ ] `track` methods
 -   [x] `user` methods
+
+### TODO v2
+
+-   [ ] `album` methods
+-   [ ] `artist` methods
+-   [ ] `auth` methods
+-   [ ] `track` methods
 
 ## Notes
 
