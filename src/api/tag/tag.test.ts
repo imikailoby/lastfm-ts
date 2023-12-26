@@ -104,4 +104,12 @@ describe('TagApi', () => {
             limit: '10',
         });
     });
+
+    it('getTopTags()', async () => {
+        await tagApi.getTopTags();
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopTags',
+        });
+    });
 });

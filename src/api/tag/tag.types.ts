@@ -47,6 +47,19 @@ export type TagGetTopArtistsResponse = {
     };
 };
 
+export type TagGetTopTagsResponse = {
+    toptags: {
+        '@attr': {
+            num_res: number;
+            offset: number;
+            total: number;
+        };
+        tag: (Pick<Tag, 'name' | 'reach'> & {
+            count: number;
+        })[];
+    };
+};
+
 export type Tag = {
     name: string;
     reach: number | string;
