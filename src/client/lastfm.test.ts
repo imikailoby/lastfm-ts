@@ -1,3 +1,4 @@
+import { GeoApi } from '../api/geo/geo';
 import { LibraryApi } from '../api/library/library';
 import { UserApi } from '../api/user/user';
 import { LastFm } from './lastfm';
@@ -18,5 +19,10 @@ describe('LastFm client', () => {
     it('has library methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.library).toBeInstanceOf(LibraryApi);
+    });
+
+    it('has geo methods', () => {
+        const lastFm = new LastFm(mockedApiKey);
+        expect(lastFm.geo).toBeInstanceOf(GeoApi);
     });
 });
