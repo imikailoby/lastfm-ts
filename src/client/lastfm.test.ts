@@ -1,6 +1,7 @@
 import { GeoApi } from '../api/geo/geo';
 import { LibraryApi } from '../api/library/library';
 import { UserApi } from '../api/user/user';
+import { ChartApi } from '../api/chart/chart';
 import { LastFm } from './lastfm';
 
 const mockedApiKey = 'test';
@@ -24,5 +25,10 @@ describe('LastFm client', () => {
     it('has geo methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.geo).toBeInstanceOf(GeoApi);
+    });
+
+    it('it chart methods', () => {
+        const lastFm = new LastFm(mockedApiKey);
+        expect(lastFm.chart).toBeInstanceOf(ChartApi);
     });
 });
