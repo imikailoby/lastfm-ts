@@ -74,3 +74,5 @@ Some insights into specific feature implementations, highlighting discrepancies 
 -   **24.12.2023** | The API returns the `streamable` attribute for some objects, but their interfaces do not have this attribute. [Reason why](https://support.last.fm/t/is-the-streamable-attribute-broken-it-always-returns-0/39723/1).
 
 -   **24.12.2023** | `user` does not have the `getWeeklyChartList()` method despite it being present in the documentation. Looks like the method is dead. [More info](https://support.last.fm/t/user-getweeklychartlist-doesnt-return-the-latest-charts/7333/2).
+
+-   **26.12.2023** | `geo.getTopTracks()` does not have the `location` param despite it being present in the documentation. [Reason why](https://support.last.fm/t/geo-gettoptracks-list-for-an-optional-location-metro/7446).

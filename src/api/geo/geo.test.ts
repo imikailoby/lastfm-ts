@@ -53,4 +53,38 @@ describe('GeoApi', () => {
             limit: '10',
         });
     });
+
+    it('getTopTracks()', async () => {
+        await geoApi.getTopTracks({ country: mockedCountry });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'geo.getTopTracks',
+            country: mockedCountry,
+        });
+
+        await geoApi.getTopTracks({ country: mockedCountry, page: '2' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'geo.getTopTracks',
+            country: mockedCountry,
+            page: '2',
+        });
+
+        await geoApi.getTopTracks({ country: mockedCountry, limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: 'geo.getTopTracks',
+            country: mockedCountry,
+            limit: '10',
+        });
+
+        await geoApi.getTopTracks({ country: mockedCountry, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: 'geo.getTopTracks',
+            country: mockedCountry,
+            page: '2',
+            limit: '10',
+        });
+    });
 });
