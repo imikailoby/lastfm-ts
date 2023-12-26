@@ -6,6 +6,7 @@ TypeScript-based client for the [Last.fm API](https://www.last.fm/api), designed
 > This package is currently under development in my spare time. All available API methods will be added shortly. Please note that this is a work in progress, and as such, the functionality and features are subject to change.
 
 ## Installation
+
 ```zsh
   # via yarn
   yarn add @imikailoby/lastfm-ts
@@ -15,17 +16,19 @@ TypeScript-based client for the [Last.fm API](https://www.last.fm/api), designed
 ```
 
 ## Usage
+
 1. Obtain the **Last.fm API Key** ([Read more](https://www.last.fm/api#getting-started)).
 2. Initialize the `LastFm` class with the obtained API key.
 
 Example:
+
 ```ts
 import { LastFm } from '@imikailoby/lastfm-ts’;
 
 const lastFm = new LastFm('api_key'); // Insert your API key
 
 lastFm.user.getInfo({ user: 'imikailoby' }).then((response) => {
-    const { user }  = response;
+    const { user } = response;
     // Do something with user data
 });
 ```
@@ -33,30 +36,31 @@ lastFm.user.getInfo({ user: 'imikailoby' }).then((response) => {
 This client accommodates varying response structures from different API methods by utilizing generic types.
 
 For example, the response of [user.getPersonalTags](https://www.last.fm/api/show/user.getPersonalTags) varies based on the `taggingtype` parameter. Specify the `taggingtype` as a generic type when calling the function to ensure TypeScript accurately reflects the response structure.
+
 ```ts
 import { LastFm } from '@imikailoby/lastfm-ts';
 
 const lastFm = new LastFm('api_key'); // Insert your API key
 
 // Use generic type 'artist' for specific response structure
-lastFm.user.getPersonalTags<'artist'>({ user: 'imikailoby', taggingtype: 'artist', tag: 'rock' })
-    .then((response) => {
-        // Attempting to access 'albums' will result in a TypeScript error
-        // Error: Property 'albums' does not exist on type 'UserGetPersonalTagsArtistsResponse'
-        const errorExample = response.taggings.albums;
+lastFm.user.getPersonalTags<'artist'>({ user: 'imikailoby', taggingtype: 'artist', tag: 'rock' }).then((response) => {
+    // Attempting to access 'albums' will result in a TypeScript error
+    // Error: Property 'albums' does not exist on type 'UserGetPersonalTagsArtistsResponse'
+    const errorExample = response.taggings.albums;
 
-        // Accessing 'artists' is valid for 'artist' tagging type
-        const validExample = response.taggings.artists;
-    });
+    // Accessing 'artists' is valid for 'artist' tagging type
+    const validExample = response.taggings.artists;
+});
 ```
 
 ## TODO
+
 -   [ ] `album` methods
 -   [ ] `artist` methods
 -   [ ] `auth` methods
 -   [ ] `chart` methods
 -   [ ] `geo` methods
--   [ ] `library` methods
+-   [x] `library` methods
 -   [ ] `tag` methods
 -   [ ] `track` methods
 -   [x] `user` methods
