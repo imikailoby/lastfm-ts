@@ -1,7 +1,8 @@
 import type { PaginationQueryParams } from '../../common/apiClient.types';
 import type { Artist } from '../artist/artist.types';
-import type { AttrPagination } from '../common.types';
+import type { AttrPagination, Image } from '../common.types';
 import type { Tag } from '../tag/tag.types';
+import type { Track } from '../track/track.types';
 
 export type ChartGetTopArtistsParams = PaginationQueryParams;
 
@@ -23,6 +24,17 @@ export type ChartGetTopTagsResponse = {
         tag: (Pick<Tag, 'name' | 'reach' | 'wiki'> & {
             taggings: string;
             url: string;
+        })[];
+    };
+};
+
+export type ChartGetTopTracksParams = PaginationQueryParams;
+
+export type ChartGetTopTracksResponse = {
+    tracks: {
+        '@attr': AttrPagination;
+        track: (Pick<Track, 'artist' | 'duration' | 'listeners' | 'mbid' | 'name' | 'playcount' | 'url'> & {
+            image: Image[];
         })[];
     };
 };

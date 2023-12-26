@@ -4,6 +4,8 @@ import type {
     ChartGetTopArtistsResponse,
     ChartGetTopTagsParams,
     ChartGetTopTagsResponse,
+    ChartGetTopTracksParams,
+    ChartGetTopTracksResponse,
 } from './chart.types';
 
 export class ChartApi extends LastFmApi implements ChartApiInterface {
@@ -22,9 +24,18 @@ export class ChartApi extends LastFmApi implements ChartApiInterface {
             ...params,
         });
     }
+
+    public getTopTracks(params?: ChartGetTopTracksParams): Promise<ChartGetTopTracksResponse> {
+        return this.apiClient.get<ChartGetTopTracksResponse, ChartGetTopTracksParams>({
+            method: 'chart.getTopTracks',
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
 }
 
 interface ChartApiInterface {
     getTopArtists: (params?: ChartGetTopArtistsParams) => Promise<ChartGetTopArtistsResponse>;
     getTopTags: (params?: ChartGetTopTagsParams) => Promise<ChartGetTopTagsResponse>;
+    getTopTracks: (params?: ChartGetTopTracksParams) => Promise<ChartGetTopTracksResponse>;
 }

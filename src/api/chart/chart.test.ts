@@ -78,4 +78,34 @@ describe('ChartApi', () => {
             limit: '10',
         });
     });
+
+    it('getTopTracks()', async () => {
+        await chartApi.getTopTracks();
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'chart.getTopTracks',
+        });
+
+        await chartApi.getTopTracks({ page: '2' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'chart.getTopTracks',
+            page: '2',
+        });
+
+        await chartApi.getTopTracks({ limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: 'chart.getTopTracks',
+            limit: '10',
+        });
+
+        await chartApi.getTopTracks({ page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: 'chart.getTopTracks',
+            page: '2',
+            limit: '10',
+        });
+    });
 });
