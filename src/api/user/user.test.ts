@@ -29,7 +29,7 @@ describe('UserApi', () => {
             user: mockedUserName,
         });
 
-        await userApi.getInfo({});
+        await userApi.getInfo();
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
             method: 'user.getInfo',

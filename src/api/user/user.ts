@@ -37,7 +37,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
         });
     }
 
-    public getInfo(params: UserGetInfoParams): Promise<UserGetInfoResponse> {
+    public getInfo(params?: UserGetInfoParams): Promise<UserGetInfoResponse> {
         return this.apiClient.get<UserGetInfoResponse, UserGetInfoParams>({
             method: 'user.getInfo',
             api_key: this.apiKey,
@@ -132,7 +132,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
 
 interface UserApiInterface {
     getFriends: (params: UserGetFriendsParams) => Promise<UserGetFriendsResponse>;
-    getInfo: (params: UserGetInfoParams) => Promise<UserGetInfoResponse>;
+    getInfo: (params?: UserGetInfoParams) => Promise<UserGetInfoResponse>;
     getLovedTracks: (params: UserGetLovedTracksParams) => Promise<UserGetLovedTracksResponse>;
     getPersonalTags: <T = TaggingType>(params: UserGetPersonalTagsParams) => Promise<UserGetPersonalTagsResponse<T>>;
     getRecentTracks: <T = RecentTracksType>(
