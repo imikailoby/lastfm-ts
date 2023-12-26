@@ -112,4 +112,38 @@ describe('TagApi', () => {
             method: 'tag.getTopTags',
         });
     });
+
+    it('getTopTracks()', async () => {
+        await tagApi.getTopTracks({ tag: mockedTag });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopTracks',
+            tag: mockedTag,
+        });
+
+        await tagApi.getTopTracks({ tag: mockedTag, page: '2' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopTracks',
+            tag: mockedTag,
+            page: '2',
+        });
+
+        await tagApi.getTopTracks({ tag: mockedTag, limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopTracks',
+            tag: mockedTag,
+            limit: '10',
+        });
+
+        await tagApi.getTopTracks({ tag: mockedTag, page: '2', limit: '10' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: 'tag.getTopTracks',
+            tag: mockedTag,
+            page: '2',
+            limit: '10',
+        });
+    });
 });

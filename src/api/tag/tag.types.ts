@@ -1,7 +1,8 @@
 import type { PaginationQueryParams } from '../../common/apiClient.types';
 import type { Album } from '../album/album.types';
 import type { Artist } from '../artist/artist.types';
-import type { AttrPagination, Wiki } from '../common.types';
+import type { AttrPagination, Image, Wiki } from '../common.types';
+import type { Track } from '../track/track.types';
 
 export type TagGetInfoParams = {
     tag: string;
@@ -56,6 +57,24 @@ export type TagGetTopTagsResponse = {
         };
         tag: (Pick<Tag, 'name' | 'reach'> & {
             count: number;
+        })[];
+    };
+};
+
+export type TagGetTopTracksParams = PaginationQueryParams & {
+    tag: string;
+};
+
+export type TagGetTopTracksResponse = {
+    tracks: {
+        '@attr': AttrPagination & {
+            tag: string;
+        };
+        track: (Pick<Track, 'artist' | 'duration' | 'mbid' | 'name' | 'url'> & {
+            '@attr': {
+                rank: string;
+            };
+            image: Image[];
         })[];
     };
 };
