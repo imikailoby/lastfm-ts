@@ -1,4 +1,6 @@
 import type { Image, Wiki } from '../common.types';
+import type { Tag } from '../tag/tag.types';
+import type { Track } from '../track/track.types';
 
 export type Album = {
     artist: string;
@@ -7,8 +9,14 @@ export type Album = {
     mbid: string;
     name: string;
     playcount: string;
-    tags: unknown[];
-    tracks: unknown[];
+    tags: (Pick<Tag, 'name'> & {
+        url: string;
+    })[];
+    tracks: (Pick<Track, 'artist' | 'duration' | 'name' | 'url'> & {
+        '@attr': {
+            rank: number;
+        };
+    })[];
     url: string;
     wiki: Wiki;
 };

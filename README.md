@@ -2,9 +2,6 @@
 
 TypeScript-based client for the [Last.fm API](https://www.last.fm/api), designed to streamline access to its methods and JSON responses.
 
-> [!NOTE]
-> This package is currently under development in my spare time. All available API methods will be added shortly. Please note that this is a work in progress, and as such, the functionality and features are subject to change.
-
 ## Installation
 
 ```zsh
@@ -60,7 +57,7 @@ In the first version, only methods that do not require authentication will be im
 -   [x] `chart` methods
 -   [x] `geo` methods
 -   [x] `library` methods
--   [ ] `tag` methods
+-   [x] `tag` methods
 -   [x] `user` methods
 
 ### TODO v2
@@ -85,3 +82,5 @@ It may also be useful to check the [support forum](https://support.last.fm/c/sup
 -   `geo.getTopTracks()` does not have the `location` param despite it being present in the documentation. [Reason why](https://support.last.fm/t/geo-gettoptracks-list-for-an-optional-location-metro/7446).
 
 -   `tag` does not have the `getSimilar()` method despite it being present in the documentation. The method does not work and has not been fixed since October 2020. [More info](https://support.last.fm/t/tag-getsimilar-returns-nothing/7188).
+
+-   `tag` does not have the `getWeeklyChartList()` method despite it being present in the documentation. Looks like the method is dead. [More info](https://support.last.fm/t/how-to-get-a-chart-from-a-tag-getweeklychartlist-result/43594).
