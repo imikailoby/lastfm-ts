@@ -84,3 +84,5 @@ It may also be useful to check the [support forum](https://support.last.fm/c/sup
 -   `tag` does not have the `getSimilar()` method despite it being present in the documentation. The method does not work and has not been fixed since October 2020. [More info](https://support.last.fm/t/tag-getsimilar-returns-nothing/7188).
 
 -   `tag` does not have the `getWeeklyChartList()` method despite it being present in the documentation. Looks like the method is dead. [More info](https://support.last.fm/t/how-to-get-a-chart-from-a-tag-getweeklychartlist-result/43594).
+
+-   All methods, where it is possible to specify `mbid` instead of other required attributes (e.g. `artist` and `album` in the `album.getTopTags()`) do not have the `mbid` param. Getting data by `mdis` is broken and has not been fixed yet. [More info](https://support.last.fm/t/track-gettoptags-by-mbid/2703/4).
