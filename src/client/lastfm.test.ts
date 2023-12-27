@@ -5,6 +5,7 @@ import { ChartApi } from '../api/chart/chart';
 import { LastFm } from './lastfm';
 import { TagApi } from '../api/tag/tag';
 import { AlbumApi } from '../api/album/album';
+import { ArtistApi } from '../api/artist/artist';
 
 const mockedApiKey = 'test';
 
@@ -42,5 +43,10 @@ describe('LastFm client', () => {
     it('has album methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.album).toBeInstanceOf(AlbumApi);
+    });
+
+    it('has artist methods', () => {
+        const lastFm = new LastFm(mockedApiKey);
+        expect(lastFm.artist).toBeInstanceOf(ArtistApi);
     });
 });

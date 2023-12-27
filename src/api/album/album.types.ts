@@ -85,13 +85,15 @@ export type Album = {
     artist: string;
     image: Image[];
     listeners: string;
-    mbid: string;
+    mbid?: string;
     name: string;
-    playcount: string;
-    tags: (Pick<Tag, 'name'> & {
-        url: string;
-    })[];
-    tracks: (Pick<Track, 'artist' | 'duration' | 'name' | 'url'> & {
+    playcount: string | number;
+    tags:
+        | (Pick<Tag, 'name'> & {
+              url: string;
+          })[]
+        | string;
+    tracks?: (Pick<Track, 'artist' | 'duration' | 'name' | 'url'> & {
         '@attr': {
             rank: number;
         };
