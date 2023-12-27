@@ -4,6 +4,7 @@ import { AlbumApi } from './album';
 jest.mock('../../common/apiClient');
 
 const mockedApiKey = 'test';
+const mockedUser = 'someUser';
 const mockedArtist = 'someArtist';
 const mockedAlbum = 'someAlbum';
 
@@ -19,6 +20,27 @@ describe('AlbumApi', () => {
 
     it('creates class instance', () => {
         expect(albumApi).toBeInstanceOf(AlbumApi);
+    });
+
+    it('getTags()', async () => {
+        await albumApi.getTags({ album: mockedAlbum, artist: mockedArtist, user: mockedUser });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'album.getTags',
+            album: mockedAlbum,
+            artist: mockedArtist,
+            user: mockedUser,
+        });
+
+        await albumApi.getTags({ album: mockedAlbum, artist: mockedArtist, user: mockedUser, autocorrect: '1' });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'album.getTags',
+            album: mockedAlbum,
+            artist: mockedArtist,
+            user: mockedUser,
+            autocorrect: '1',
+        });
     });
 
     it('getTopTags()', async () => {
