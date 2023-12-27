@@ -29,3 +29,15 @@ export type Wiki = {
     published: string;
     summary: string;
 };
+
+export type OpenSearch = {
+    'opensearch:Query': {
+        '#text': string;
+        role: string;
+        searchTerms: string;
+        startPage: string;
+    };
+    'opensearch:itemsPerPage': string;
+    'opensearch:startIndex': string;
+    'opensearch:totalResults': string;
+};

@@ -4,6 +4,7 @@ import { UserApi } from '../api/user/user';
 import { ChartApi } from '../api/chart/chart';
 import { LastFm } from './lastfm';
 import { TagApi } from '../api/tag/tag';
+import { AlbumApi } from '../api/album/album';
 
 const mockedApiKey = 'test';
 
@@ -28,13 +29,18 @@ describe('LastFm client', () => {
         expect(lastFm.geo).toBeInstanceOf(GeoApi);
     });
 
-    it('it chart methods', () => {
+    it('has chart methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.chart).toBeInstanceOf(ChartApi);
     });
 
-    it('it tag methods', () => {
+    it('has tag methods', () => {
         const lastFm = new LastFm(mockedApiKey);
         expect(lastFm.tag).toBeInstanceOf(TagApi);
+    });
+
+    it('has album methods', () => {
+        const lastFm = new LastFm(mockedApiKey);
+        expect(lastFm.album).toBeInstanceOf(AlbumApi);
     });
 });
