@@ -28,12 +28,6 @@ describe('UserApi', () => {
             method: 'user.getInfo',
             user: mockedUserName,
         });
-
-        await userApi.getInfo();
-        expect(mockedGet).toHaveBeenNthCalledWith(2, {
-            api_key: mockedApiKey,
-            method: 'user.getInfo',
-        });
     });
 
     it('getFriends()', async () => {

@@ -32,7 +32,7 @@ export type UserGetFriendsResponse = {
 };
 
 export type UserGetInfoParams = {
-    user?: string;
+    user: string;
 };
 
 export type UserGetInfoResponse = {
