@@ -83,5 +83,5 @@ export type Tag = {
     name: string;
     reach: number | string;
     total: number;
-    wiki: Pick<Wiki, 'content' | 'summary'>;
+    wiki?: Pick<Wiki, 'content' | 'summary'>;
 };

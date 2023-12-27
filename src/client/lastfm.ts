@@ -5,6 +5,7 @@ import { ChartApi } from '../api/chart/chart';
 import { TagApi } from '../api/tag/tag';
 import { AlbumApi } from '../api/album/album';
 import { ArtistApi } from '../api/artist/artist';
+import { TrackApi } from '../api/track/track';
 
 export class LastFm implements LastFmInterface {
     public user: UserApi;
@@ -14,6 +15,7 @@ export class LastFm implements LastFmInterface {
     public tag: TagApi;
     public album: AlbumApi;
     public artist: ArtistApi;
+    public track: TrackApi;
 
     constructor(apiKey: string) {
         this.user = new UserApi(apiKey);
@@ -23,6 +25,7 @@ export class LastFm implements LastFmInterface {
         this.tag = new TagApi(apiKey);
         this.album = new AlbumApi(apiKey);
         this.artist = new ArtistApi(apiKey);
+        this.track = new TrackApi(apiKey);
     }
 }
 
@@ -34,4 +37,5 @@ interface LastFmInterface {
     tag: TagApi;
     album: AlbumApi;
     artist: ArtistApi;
+    track: TrackApi;
 }

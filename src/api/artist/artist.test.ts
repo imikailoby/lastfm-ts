@@ -7,7 +7,7 @@ const mockedApiKey = 'test';
 const mockedArtist = 'someArtist';
 const mockedUser = 'someUser';
 
-describe('AlbumApi', () => {
+describe('ArtistApi', () => {
     let artistApi: ArtistApi;
     let mockedGet: jest.Mock;
 
