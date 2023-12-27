@@ -6,9 +6,20 @@ import type {
     AlbumGetTopTagsResponse,
     AlbumGetTagsParams,
     AlbumGetTagsResponse,
+    AlbumGetInfoParams,
+    AlbumGetInfoResponse,
+    AlbumInfoType,
 } from './album.types';
 
 export class AlbumApi extends LastFmApi implements AlbumApiInterface {
+    public getInfo<T extends AlbumInfoType = undefined>(params: AlbumGetInfoParams): Promise<AlbumGetInfoResponse<T>> {
+        return this.apiClient.get<AlbumGetInfoResponse<T>, AlbumGetInfoParams>({
+            method: 'album.getInfo',
+            api_key: this.apiKey,
+            ...params,
+        });
+    }
+
     public getTags(params: AlbumGetTagsParams): Promise<AlbumGetTagsResponse> {
         return this.apiClient.get<AlbumGetTagsResponse, AlbumGetTagsParams>({
             method: 'album.getTags',
@@ -35,6 +46,7 @@ export class AlbumApi extends LastFmApi implements AlbumApiInterface {
 }
 
 interface AlbumApiInterface {
+    getInfo<T extends AlbumInfoType = undefined>(params: AlbumGetInfoParams): Promise<AlbumGetInfoResponse<T>>;
     getTags(params: AlbumGetTagsParams): Promise<AlbumGetTagsResponse>;
     getTopTags: (params: AlbumGetTopTagsParams) => Promise<AlbumGetTopTagsResponse>;
     search: (params: AlbumSearchParams) => Promise<AlbumSearchParamsResponse>;

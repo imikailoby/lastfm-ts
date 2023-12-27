@@ -22,6 +22,45 @@ describe('AlbumApi', () => {
         expect(albumApi).toBeInstanceOf(AlbumApi);
     });
 
+    it('getInfo()', async () => {
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist });
+        expect(mockedGet).toHaveBeenNthCalledWith(1, {
+            api_key: mockedApiKey,
+            method: 'album.getInfo',
+            album: mockedAlbum,
+            artist: mockedArtist,
+        });
+
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, user: mockedUser });
+        expect(mockedGet).toHaveBeenNthCalledWith(2, {
+            api_key: mockedApiKey,
+            method: 'album.getInfo',
+            album: mockedAlbum,
+            artist: mockedArtist,
+            user: mockedUser,
+        });
+
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, user: mockedUser, autocorrect: '1' });
+        expect(mockedGet).toHaveBeenNthCalledWith(3, {
+            api_key: mockedApiKey,
+            method: 'album.getInfo',
+            album: mockedAlbum,
+            artist: mockedArtist,
+            user: mockedUser,
+            autocorrect: '1',
+        });
+
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, user: mockedUser, lang: 'es' });
+        expect(mockedGet).toHaveBeenNthCalledWith(4, {
+            api_key: mockedApiKey,
+            method: 'album.getInfo',
+            album: mockedAlbum,
+            artist: mockedArtist,
+            user: mockedUser,
+            lang: 'es',
+        });
+    });
+
     it('getTags()', async () => {
         await albumApi.getTags({ album: mockedAlbum, artist: mockedArtist, user: mockedUser });
         expect(mockedGet).toHaveBeenNthCalledWith(1, {

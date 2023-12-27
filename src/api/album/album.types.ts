@@ -3,6 +3,30 @@ import type { Image, OpenSearch, Wiki } from '../common.types';
 import type { Tag } from '../tag/tag.types';
 import type { Track } from '../track/track.types';
 
+export type AlbumGetInfoParams = {
+    artist: string;
+    album: string;
+    autocorrect?: '0' | '1';
+    user?: string;
+    lang?: string;
+};
+
+type AlbumGetInfoResponseRegular = {
+    album: Album;
+};
+
+type AlbumGetInfoResponseWithUserPlayCount = {
+    album: Album & {
+        userplaycount?: number;
+    };
+};
+
+export type AlbumGetInfoResponse<T extends AlbumInfoType> = T extends 'userplaycount'
+    ? AlbumGetInfoResponseWithUserPlayCount
+    : AlbumGetInfoResponseRegular;
+
+export type AlbumInfoType = 'userplaycount' | undefined;
+
 export type AlbumGetTagsParams = {
     artist: string;
     album: string;
@@ -73,5 +97,5 @@ export type Album = {
         };
     })[];
     url: string;
-    wiki: Wiki;
+    wiki?: Wiki;
 };
