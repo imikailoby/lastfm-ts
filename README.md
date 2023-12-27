@@ -60,7 +60,7 @@ Only methods that do not require authentication will be implemented.
 -   [x] `geo` public methods
 -   [x] `library` public methods
 -   [x] `tag` public methods
--   [ ] `track` public methods
+-   [x] `track` public methods
 -   [x] `user` public methods
 
 ## Notes
