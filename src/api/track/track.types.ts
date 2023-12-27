@@ -11,7 +11,7 @@ export type Track = {
         title: string;
     };
     artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
-    duration: string | number;
+    duration: string | number | null;
     listeners: string;
     mbid: string;
     name: string;

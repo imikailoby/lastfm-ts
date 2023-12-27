@@ -7,7 +7,7 @@ export type AlbumGetInfoParams = {
     artist: string;
     album: string;
     autocorrect?: '0' | '1';
-    user?: string;
+    username?: string;
     lang?: string;
 };
 

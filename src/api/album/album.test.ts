@@ -31,32 +31,32 @@ describe('AlbumApi', () => {
             artist: mockedArtist,
         });
 
-        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, user: mockedUser });
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, username: mockedUser });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
             method: 'album.getInfo',
             album: mockedAlbum,
             artist: mockedArtist,
-            user: mockedUser,
+            username: mockedUser,
         });
 
-        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, user: mockedUser, autocorrect: '1' });
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, username: mockedUser, autocorrect: '1' });
         expect(mockedGet).toHaveBeenNthCalledWith(3, {
             api_key: mockedApiKey,
             method: 'album.getInfo',
             album: mockedAlbum,
             artist: mockedArtist,
-            user: mockedUser,
+            username: mockedUser,
             autocorrect: '1',
         });
 
-        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, user: mockedUser, lang: 'es' });
+        await albumApi.getInfo({ album: mockedAlbum, artist: mockedArtist, username: mockedUser, lang: 'es' });
         expect(mockedGet).toHaveBeenNthCalledWith(4, {
             api_key: mockedApiKey,
             method: 'album.getInfo',
             album: mockedAlbum,
             artist: mockedArtist,
-            user: mockedUser,
+            username: mockedUser,
             lang: 'es',
         });
     });
