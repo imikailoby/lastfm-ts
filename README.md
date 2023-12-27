@@ -55,7 +55,7 @@ lastFm.user.getPersonalTags<'artist'>({ user: 'imikailoby', taggingtype: 'artist
 Only methods that do not require authentication will be implemented.
 
 -   [x] `album` public methods
--   [ ] `artist` public methods
+-   [x] `artist` public methods
 -   [x] `chart` public methods
 -   [x] `geo` public methods
 -   [x] `library` public methods
