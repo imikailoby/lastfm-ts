@@ -52,20 +52,16 @@ lastFm.user.getPersonalTags<'artist'>({ user: 'imikailoby', taggingtype: 'artist
 
 ## Roadmap
 
-In the first version, only methods that do not require authentication will be implemented.
+Only methods that do not require authentication will be implemented.
 
--   [x] `chart` methods
--   [x] `geo` methods
--   [x] `library` methods
--   [x] `tag` methods
--   [x] `user` methods
-
-### TODO v2
-
--   [ ] `album` methods
--   [ ] `artist` methods
--   [ ] `auth` methods
--   [ ] `track` methods
+-   [x] `album` public methods
+-   [ ] `artist` public methods
+-   [x] `chart` public methods
+-   [x] `geo` public methods
+-   [x] `library` public methods
+-   [x] `tag` public methods
+-   [ ] `track` public methods
+-   [x] `user` public methods
 
 ## Notes
 
