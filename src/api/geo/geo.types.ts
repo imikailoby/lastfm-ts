@@ -3,9 +3,9 @@ import type { Artist } from '../artist/artist.types';
 import type { AttrPagination, Image } from '../common.types';
 import type { Track } from '../track/track.types';
 
-export type GeoGetTopArtistsParams = PaginationQueryParams & {
+export interface GeoGetTopArtistsParams extends PaginationQueryParams {
     country: string;
-};
+}
 
 export type GeoGetTopArtistsResponse = {
     topartists: {
@@ -18,9 +18,9 @@ export type GeoGetTopArtistsResponse = {
     };
 };
 
-export type GeoGetTopTracksParams = PaginationQueryParams & {
+export interface GeoGetTopTracksParams extends PaginationQueryParams {
     country: string;
-};
+}
 
 export type GeoGetTopTracksResponse = {
     tracks: {

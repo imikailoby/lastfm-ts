@@ -1,3 +1,4 @@
+import type { OptionalUserPlayCount } from '../common.types';
 import { LastFmApi } from '../lastFmApi';
 import type {
     ArtistGetCorrectionParams,
@@ -14,7 +15,6 @@ import type {
     ArtistGetTopTagsResponse,
     ArtistGetTopTracksParams,
     ArtistGetTopTracksResponse,
-    ArtistInfoType,
     ArtistSearchParams,
     ArtistSearchResponse,
 } from './artist.types';
@@ -28,7 +28,7 @@ export class ArtistApi extends LastFmApi implements ArtistApiInterface {
         });
     }
 
-    public getInfo<T extends ArtistInfoType = undefined>(
+    public getInfo<T extends OptionalUserPlayCount = undefined>(
         params: ArtistGetInfoParams,
     ): Promise<ArtistGetInfoResponse<T>> {
         return this.apiClient.get<ArtistGetInfoResponse<T>, ArtistGetInfoParams>({
@@ -89,7 +89,9 @@ export class ArtistApi extends LastFmApi implements ArtistApiInterface {
 
 interface ArtistApiInterface {
     getCorrection(params: ArtistGetCorrectionParams): Promise<ArtistGetCorrectionResponse>;
-    getInfo<T extends ArtistInfoType = undefined>(params: ArtistGetInfoParams): Promise<ArtistGetInfoResponse<T>>;
+    getInfo<T extends OptionalUserPlayCount = undefined>(
+        params: ArtistGetInfoParams,
+    ): Promise<ArtistGetInfoResponse<T>>;
     getSimilar(params: ArtistGetSimilarParams): Promise<ArtistGetSimilarResponse>;
     getTags(params: ArtistGetTagsParams): Promise<ArtistGetTagsResponse>;
     getTopAlbums(params: ArtistGetTopAlbumsParams): Promise<ArtistGetTopAlbumsResponse>;

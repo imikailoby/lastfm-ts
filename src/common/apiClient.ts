@@ -5,7 +5,9 @@ import { getRequestUrlParams } from './helpers';
 export class ApiClient implements ApiClientInterface {
     private baseUrl: string = `${API_ENDPOINT}/${API_VERSION}`;
 
-    public async get<ResponseType, ParamsType>(params: QueryParams<ParamsType>): Promise<ResponseType> {
+    public async get<ResponseType = unknown, ParamsType = unknown>(
+        params: QueryParams<ParamsType>,
+    ): Promise<ResponseType> {
         const urlParams = getRequestUrlParams<ParamsType>(params);
         const response = await fetch(`${this.baseUrl}/?${urlParams}`, {
             method: 'GET',
@@ -21,6 +23,6 @@ export class ApiClient implements ApiClientInterface {
     }
 }
 
-export type ApiClientInterface = {
-    get<ResponseType, ParamsType>(params: QueryParams<ParamsType>): Promise<ResponseType>;
-};
+interface ApiClientInterface {
+    get<ResponseType = unknown, ParamsType = unknown>(params: QueryParams<ParamsType>): Promise<ResponseType>;
+}

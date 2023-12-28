@@ -1,8 +1,6 @@
 import type { RollupOptions } from 'rollup';
 import terser from '@rollup/plugin-terser';
 import ts from 'rollup-plugin-ts';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 
 const config: RollupOptions = {
     input: 'src/index.ts',
@@ -12,8 +10,6 @@ const config: RollupOptions = {
         sourcemap: false,
     },
     plugins: [
-        nodeResolve(),
-        commonjs(),
         ts({
             exclude: ['rollup.config.ts', 'jest.config.ts'],
         }),

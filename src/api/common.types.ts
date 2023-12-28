@@ -3,32 +3,36 @@ export type Image = {
     '#text': string;
 };
 
-export type Registered = {
+export interface Registered {
     unixtime: string;
     '#text': number | string;
-};
+}
 
-export type UtcDate = {
+export interface UtcDate {
     uts: string;
     '#text': number | string;
-};
+}
 
-export type AttrPagination = {
+export interface AttrPagination {
     page: string;
     perPage: string;
     total: string;
     totalPages: string;
-};
+}
 
 export type TaggingType = 'artist' | 'album' | 'track';
 
 export type Period = 'overall' | '7day' | '1month' | '3month' | '6month' | '12month';
 
-export type Wiki = {
+export interface Wiki {
     content: string;
     published: string;
     summary: string;
-};
+}
+
+export type FlagString = '0' | '1';
+
+export type OptionalUserPlayCount = 'userplaycount' | undefined;
 
 export type OpenSearch = {
     'opensearch:Query': {

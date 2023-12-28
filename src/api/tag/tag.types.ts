@@ -4,18 +4,18 @@ import type { Artist } from '../artist/artist.types';
 import type { AttrPagination, Image, Wiki } from '../common.types';
 import type { Track } from '../track/track.types';
 
-export type TagGetInfoParams = {
+export interface TagGetInfoParams {
     tag: string;
     lang?: string;
-};
+}
 
 export type TagGetInfoResponse = {
     tag: Tag;
 };
 
-export type TagGetTopAlbumsParams = PaginationQueryParams & {
+export interface TagGetTopAlbumsParams extends PaginationQueryParams {
     tag: string;
-};
+}
 
 export type TagGetTopAlbumsResponse = {
     albums: {
@@ -31,9 +31,9 @@ export type TagGetTopAlbumsResponse = {
     };
 };
 
-export type TagGetTopArtistsParams = PaginationQueryParams & {
+export interface TagGetTopArtistsParams extends PaginationQueryParams {
     tag: string;
-};
+}
 
 export type TagGetTopArtistsResponse = {
     topartists: {
@@ -61,9 +61,9 @@ export type TagGetTopTagsResponse = {
     };
 };
 
-export type TagGetTopTracksParams = PaginationQueryParams & {
+export interface TagGetTopTracksParams extends PaginationQueryParams {
     tag: string;
-};
+}
 
 export type TagGetTopTracksResponse = {
     tracks: {
@@ -79,9 +79,9 @@ export type TagGetTopTracksResponse = {
     };
 };
 
-export type Tag = {
+export interface Tag {
     name: string;
     reach: number | string;
     total: number;
     wiki?: Pick<Wiki, 'content' | 'summary'>;
-};
+}

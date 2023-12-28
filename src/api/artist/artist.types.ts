@@ -1,12 +1,13 @@
 import type { PaginationQueryParams } from '../../common/apiClient.types';
 import type { Album } from '../album/album.types';
-import type { AttrPagination, Image, OpenSearch, Wiki } from '../common.types';
+import type { AttrPagination, FlagString, Image, OpenSearch, OptionalUserPlayCount, Wiki } from '../common.types';
 import type { Tag } from '../tag/tag.types';
 import type { Track } from '../track/track.types';
 
-export type ArtistGetCorrectionParams = {
+export interface ArtistGetCorrectionParams {
     artist: string;
-};
+}
+
 export type ArtistGetCorrectionResponse = {
     corrections: {
         correction: {
@@ -18,35 +19,34 @@ export type ArtistGetCorrectionResponse = {
     };
 };
 
-export type ArtistGetInfoParams = {
+export interface ArtistGetInfoParams {
     artist: string;
-    autocorrect?: '0' | '1';
+    autocorrect?: FlagString;
     username?: string;
     lang?: string;
-};
+}
 
-type ArtistGetInfoResponseRegular = {
+interface ArtistGetInfoResponseRegular {
     artist: Artist;
-};
+}
 
-type ArtistGetInfoResponseWithUserPlayCount = {
+interface ArtistGetInfoResponseWithUserPlayCount {
     artist: Omit<Artist, 'stats'> & {
         stats: Pick<Artist['stats'], 'listeners' | 'playcount'> & {
             userplaycount: string;
         };
     };
-};
+}
 
-export type ArtistGetInfoResponse<T extends ArtistInfoType> = T extends 'userplaycount'
+export type ArtistGetInfoResponse<T extends OptionalUserPlayCount = undefined> = T extends 'userplaycount'
     ? ArtistGetInfoResponseWithUserPlayCount
     : ArtistGetInfoResponseRegular;
 
-export type ArtistInfoType = 'userplaycount' | undefined;
-
-export type ArtistGetSimilarParams = {
+export interface ArtistGetSimilarParams {
     artist: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
+
 export type ArtistGetSimilarResponse = {
     similarartists: {
         '@attr': {
@@ -58,11 +58,12 @@ export type ArtistGetSimilarResponse = {
     };
 };
 
-export type ArtistGetTagsParams = {
+export interface ArtistGetTagsParams {
     artist: string;
     user: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
+
 export type ArtistGetTagsResponse = {
     tags: {
         '#text'?: string;
@@ -75,10 +76,11 @@ export type ArtistGetTagsResponse = {
     };
 };
 
-export type ArtistGetTopAlbumsParams = PaginationQueryParams & {
+export interface ArtistGetTopAlbumsParams extends PaginationQueryParams {
     artist: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
+
 export type ArtistGetTopAlbumsResponse = {
     topalbums: {
         '@attr': AttrPagination & {
@@ -90,10 +92,11 @@ export type ArtistGetTopAlbumsResponse = {
     };
 };
 
-export type ArtistGetTopTagsParams = {
+export interface ArtistGetTopTagsParams {
     artist: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
+
 export type ArtistGetTopTagsResponse = {
     toptags: {
         '@attr': {
@@ -106,10 +109,11 @@ export type ArtistGetTopTagsResponse = {
     };
 };
 
-export type ArtistGetTopTracksParams = PaginationQueryParams & {
+export interface ArtistGetTopTracksParams extends PaginationQueryParams {
     artist: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
+
 export type ArtistGetTopTracksResponse = {
     toptracks: {
         '@attr': AttrPagination & {
@@ -124,9 +128,10 @@ export type ArtistGetTopTracksResponse = {
     };
 };
 
-export type ArtistSearchParams = PaginationQueryParams & {
+export interface ArtistSearchParams extends PaginationQueryParams {
     artist: string;
-};
+}
+
 export type ArtistSearchResponse = {
     results: OpenSearch & {
         '@attr': {
@@ -140,7 +145,7 @@ export type ArtistSearchResponse = {
     };
 };
 
-export type Artist = {
+export interface Artist {
     bio: Wiki & {
         links: {
             link: {
@@ -153,7 +158,7 @@ export type Artist = {
     image: Image[];
     mbid?: string;
     name: string;
-    ontour: '0' | '1';
+    ontour: FlagString;
     similar: {
         artist: Pick<Artist, 'image' | 'name' | 'url'>[];
     };
@@ -167,4 +172,4 @@ export type Artist = {
         })[];
     };
     url: string;
-};
+}

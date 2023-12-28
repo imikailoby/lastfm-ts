@@ -37,7 +37,7 @@ export class TagApi extends LastFmApi implements TagApiInterface {
     }
 
     public getTopTags(): Promise<TagGetTopTagsResponse> {
-        return this.apiClient.get<TagGetTopTagsResponse, unknown>({
+        return this.apiClient.get<TagGetTopTagsResponse>({
             method: 'tag.getTopTags',
             api_key: this.apiKey,
         });

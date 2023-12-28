@@ -1,3 +1,4 @@
+import type { OptionalUserPlayCount } from '../common.types';
 import { LastFmApi } from '../lastFmApi';
 import type {
     AlbumSearchParams,
@@ -8,11 +9,12 @@ import type {
     AlbumGetTagsResponse,
     AlbumGetInfoParams,
     AlbumGetInfoResponse,
-    AlbumInfoType,
 } from './album.types';
 
 export class AlbumApi extends LastFmApi implements AlbumApiInterface {
-    public getInfo<T extends AlbumInfoType = undefined>(params: AlbumGetInfoParams): Promise<AlbumGetInfoResponse<T>> {
+    public getInfo<T extends OptionalUserPlayCount = undefined>(
+        params: AlbumGetInfoParams,
+    ): Promise<AlbumGetInfoResponse<T>> {
         return this.apiClient.get<AlbumGetInfoResponse<T>, AlbumGetInfoParams>({
             method: 'album.getInfo',
             api_key: this.apiKey,
@@ -46,7 +48,7 @@ export class AlbumApi extends LastFmApi implements AlbumApiInterface {
 }
 
 interface AlbumApiInterface {
-    getInfo<T extends AlbumInfoType = undefined>(params: AlbumGetInfoParams): Promise<AlbumGetInfoResponse<T>>;
+    getInfo<T extends OptionalUserPlayCount = undefined>(params: AlbumGetInfoParams): Promise<AlbumGetInfoResponse<T>>;
     getTags(params: AlbumGetTagsParams): Promise<AlbumGetTagsResponse>;
     getTopTags: (params: AlbumGetTopTagsParams) => Promise<AlbumGetTopTagsResponse>;
     search: (params: AlbumSearchParams) => Promise<AlbumSearchParamsResponse>;

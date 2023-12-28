@@ -1,38 +1,36 @@
 import type { PaginationQueryParams } from '../../common/apiClient.types';
-import type { Image, OpenSearch, Wiki } from '../common.types';
+import type { FlagString, Image, OpenSearch, OptionalUserPlayCount, Wiki } from '../common.types';
 import type { Tag } from '../tag/tag.types';
 import type { Track } from '../track/track.types';
 
-export type AlbumGetInfoParams = {
+export interface AlbumGetInfoParams {
     artist: string;
     album: string;
-    autocorrect?: '0' | '1';
+    autocorrect?: FlagString;
     username?: string;
     lang?: string;
-};
+}
 
-type AlbumGetInfoResponseRegular = {
+interface AlbumGetInfoResponseRegular {
     album: Album;
-};
+}
 
-type AlbumGetInfoResponseWithUserPlayCount = {
+interface AlbumGetInfoResponseWithUserPlayCount {
     album: Album & {
         userplaycount?: number;
     };
-};
+}
 
-export type AlbumGetInfoResponse<T extends AlbumInfoType> = T extends 'userplaycount'
+export type AlbumGetInfoResponse<T extends OptionalUserPlayCount = undefined> = T extends 'userplaycount'
     ? AlbumGetInfoResponseWithUserPlayCount
     : AlbumGetInfoResponseRegular;
 
-export type AlbumInfoType = 'userplaycount' | undefined;
-
-export type AlbumGetTagsParams = {
+export interface AlbumGetTagsParams {
     artist: string;
     album: string;
-    autocorrect?: '0' | '1';
+    autocorrect?: FlagString;
     user: string;
-};
+}
 
 export type AlbumGetTagsResponse = {
     tags: {
@@ -47,11 +45,11 @@ export type AlbumGetTagsResponse = {
     };
 };
 
-export type AlbumGetTopTagsParams = PaginationQueryParams & {
+export interface AlbumGetTopTagsParams extends PaginationQueryParams {
     artist: string;
     album: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
 
 export type AlbumGetTopTagsResponse = {
     toptags: {
@@ -66,9 +64,9 @@ export type AlbumGetTopTagsResponse = {
     };
 };
 
-export type AlbumSearchParams = PaginationQueryParams & {
+export interface AlbumSearchParams extends PaginationQueryParams {
     album: string;
-};
+}
 
 export type AlbumSearchParamsResponse = {
     results: OpenSearch & {
@@ -81,7 +79,7 @@ export type AlbumSearchParamsResponse = {
     };
 };
 
-export type Album = {
+export interface Album {
     artist: string;
     image: Image[];
     listeners: string;
@@ -100,4 +98,4 @@ export type Album = {
     })[];
     url: string;
     wiki?: Wiki;
-};
+}

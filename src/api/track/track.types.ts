@@ -1,13 +1,14 @@
 import type { PaginationQueryParams } from '../../common/apiClient.types';
 import type { Album } from '../album/album.types';
 import type { Artist } from '../artist/artist.types';
-import type { Image, OpenSearch, Wiki } from '../common.types';
+import type { FlagString, Image, OpenSearch, OptionalUserPlayCount, Wiki } from '../common.types';
 import type { Tag } from '../tag/tag.types';
 
-export type TrackGetCorrectionParams = {
+export interface TrackGetCorrectionParams {
     track: string;
     artist: string;
-};
+}
+
 export type TrackGetCorrectionResponse = {
     corrections: {
         correction: {
@@ -21,35 +22,33 @@ export type TrackGetCorrectionResponse = {
     };
 };
 
-export type TrackGetInfoParams = {
+export interface TrackGetInfoParams {
     track: string;
     artist: string;
     username?: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
 
-type TrackGetInfoResponseRegular = {
+interface TrackGetInfoResponseRegular {
     track: Track;
-};
+}
 
-type TrackGetInfoResponseWithUserPlayCount = {
+interface TrackGetInfoResponseWithUserPlayCount {
     track: Track & {
         userloved: string;
         userplaycount: string;
     };
-};
+}
 
-export type TrackGetInfoResponse<T extends TrackInfoType> = T extends 'userplaycount'
+export type TrackGetInfoResponse<T extends OptionalUserPlayCount = undefined> = T extends 'userplaycount'
     ? TrackGetInfoResponseWithUserPlayCount
     : TrackGetInfoResponseRegular;
 
-export type TrackInfoType = 'userplaycount' | undefined;
-
-export type TrackGetSimilarParams = Pick<PaginationQueryParams, 'limit'> & {
+export interface TrackGetSimilarParams extends Pick<PaginationQueryParams, 'limit'> {
     track: string;
     artist: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
 
 export type TrackGetSimilarResponse = {
     similartracks: {
@@ -63,12 +62,13 @@ export type TrackGetSimilarResponse = {
     };
 };
 
-export type TrackGetTagsParams = {
+export interface TrackGetTagsParams {
     track: string;
     artist: string;
-    autocorrect?: '0' | '1';
+    autocorrect?: FlagString;
     user: string;
-};
+}
+
 export type TrackGetTagsResponse = {
     tags: {
         '#text'?: string;
@@ -82,11 +82,11 @@ export type TrackGetTagsResponse = {
     };
 };
 
-export type TrackGetTopTagsParams = {
+export interface TrackGetTopTagsParams {
     track: string;
     artist: string;
-    autocorrect?: '0' | '1';
-};
+    autocorrect?: FlagString;
+}
 
 export type TrackGetTopTagsResponse = {
     toptags: {
@@ -101,10 +101,10 @@ export type TrackGetTopTagsResponse = {
     };
 };
 
-export type TrackSearchParams = PaginationQueryParams & {
+export interface TrackSearchParams extends PaginationQueryParams {
     track: string;
     artist?: string;
-};
+}
 
 export type TrackSearchParamsResponse = {
     results: Omit<OpenSearch, 'opensearch:Query'> & {
@@ -119,7 +119,7 @@ export type TrackSearchParamsResponse = {
     };
 };
 
-export type Track = {
+export interface Track {
     album: Pick<Album, 'artist' | 'image' | 'mbid' | 'url'> & {
         '@attr': {
             position: number;
@@ -139,4 +139,4 @@ export type Track = {
     };
     url: string;
     wiki?: Wiki;
-};
+}

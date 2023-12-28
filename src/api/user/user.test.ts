@@ -1,6 +1,5 @@
 import { ApiClient } from '../../common/apiClient';
 import { UserApi } from './user';
-import { RecentTracksType } from './user.types';
 
 jest.mock('../../common/apiClient');
 
@@ -159,12 +158,12 @@ describe('UserApi', () => {
             user: mockedUserName,
         });
 
-        await userApi.getRecentTracks({ user: mockedUserName, extended: RecentTracksType.EXTENDED });
+        await userApi.getRecentTracks({ user: mockedUserName, extended: '1' });
         expect(mockedGet).toHaveBeenNthCalledWith(2, {
             api_key: mockedApiKey,
             method: 'user.getRecentTracks',
             user: mockedUserName,
-            extended: RecentTracksType.EXTENDED,
+            extended: '1',
         });
 
         await userApi.getRecentTracks({ user: mockedUserName, from: '1640995200', to: '1643760000' });

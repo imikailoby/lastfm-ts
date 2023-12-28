@@ -20,14 +20,14 @@ export enum ApiError {
     RATE_LIMIT_EXCEEDED = 29,
 }
 
-export type QueryParams<T> = T & RequiredQueryParams;
+export type QueryParams<T = unknown> = T & RequiredQueryParams;
 
 export type RequiredQueryParams = {
     method: string;
     api_key: string;
 };
 
-export type PaginationQueryParams = {
+export interface PaginationQueryParams {
     limit?: string;
     page?: string;
-};
+}

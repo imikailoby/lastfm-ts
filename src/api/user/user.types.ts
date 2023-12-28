@@ -1,13 +1,13 @@
 import type { PaginationQueryParams } from '../../common/apiClient.types';
 import type { Album } from '../album/album.types';
 import type { Artist } from '../artist/artist.types';
-import type { AttrPagination, Image, Period, Registered, TaggingType, UtcDate } from '../common.types';
+import type { AttrPagination, FlagString, Image, Period, Registered, TaggingType, UtcDate } from '../common.types';
 import type { Tag } from '../tag/tag.types';
 import type { Track } from '../track/track.types';
 
-export type UserGetFriendsParams = PaginationQueryParams & {
+export interface UserGetFriendsParams extends PaginationQueryParams {
     user: string;
-};
+}
 
 export type UserGetFriendsResponse = {
     friends: {
@@ -31,17 +31,17 @@ export type UserGetFriendsResponse = {
     };
 };
 
-export type UserGetInfoParams = {
+export interface UserGetInfoParams {
     user: string;
-};
+}
 
 export type UserGetInfoResponse = {
     user: User;
 };
 
-export type UserGetLovedTracksParams = PaginationQueryParams & {
+export interface UserGetLovedTracksParams extends PaginationQueryParams {
     user: string;
-};
+}
 
 export type UserGetLovedTracksResponse = {
     lovedtracks: {
@@ -55,11 +55,11 @@ export type UserGetLovedTracksResponse = {
     };
 };
 
-export type UserGetPersonalTagsParams = PaginationQueryParams & {
+export interface UserGetPersonalTagsParams extends PaginationQueryParams {
     user: string;
     tag: string;
     taggingtype: TaggingType;
-};
+}
 
 interface BaseUserGetPersonalTagsResponse {
     '@attr': AttrPagination & {
@@ -90,7 +90,7 @@ interface UserGetPersonalTagsTracksResponse extends BaseUserGetPersonalTagsRespo
     };
 }
 
-export type UserGetPersonalTagsResponse<T = TaggingType> = {
+export type UserGetPersonalTagsResponse<T extends TaggingType> = {
     taggings: T extends 'album'
         ? UserGetPersonalTagsAlbumsResponse
         : T extends 'artist'
@@ -102,15 +102,12 @@ export type UserGetPersonalTagsResponse<T = TaggingType> = {
 
 export type UserGetRecentTracksParams = PaginationQueryParams & {
     user: string;
-    extended?: RecentTracksType;
+    extended?: FlagString;
     from?: string;
     to?: string;
 };
 
-export enum RecentTracksType {
-    REGULAR = '0',
-    EXTENDED = '1',
-}
+export type TrackDetailLevel = 'extended' | undefined;
 
 interface BaseUserGetRecentTracksResponse {
     '@attr': AttrPagination & {
@@ -143,18 +140,16 @@ interface UserGetRecentTracksResponseExtended extends BaseUserGetRecentTracksRes
     })[];
 }
 
-export type UserGetRecentTracksResponse<T = RecentTracksType> = {
-    recenttracks: T extends RecentTracksType.EXTENDED
-        ? UserGetRecentTracksResponseExtended
-        : UserGetRecentTracksResponseRegular;
+export type UserGetRecentTracksResponse<T extends TrackDetailLevel = undefined> = {
+    recenttracks: T extends 'extended' ? UserGetRecentTracksResponseExtended : UserGetRecentTracksResponseRegular;
 };
 
-export type UserGetTopAlbumsParams = PaginationQueryParams & {
+export interface UserGetTopAlbumsParams extends PaginationQueryParams {
     user: string;
     period?: Period;
-};
+}
 
-export interface UserGetTopAlbumsResponse {
+export type UserGetTopAlbumsResponse = {
     topalbums: {
         '@attr': AttrPagination & {
             user: string;
@@ -166,14 +161,14 @@ export interface UserGetTopAlbumsResponse {
             artist: Pick<Artist, 'mbid' | 'name' | 'url'>;
         })[];
     };
-}
-
-export type UserGetTopArtistsParams = PaginationQueryParams & {
-    user: string;
-    period?: Period;
 };
 
-export interface UserGetTopArtistsResponse {
+export interface UserGetTopArtistsParams extends PaginationQueryParams {
+    user: string;
+    period?: Period;
+}
+
+export type UserGetTopArtistsResponse = {
     topartists: {
         '@attr': AttrPagination & {
             user: string;
@@ -185,13 +180,13 @@ export interface UserGetTopArtistsResponse {
             playcount: string;
         })[];
     };
-}
-
-export type UserGetTopTagsParams = Pick<PaginationQueryParams, 'limit'> & {
-    user: string;
 };
 
-export interface UserGetTopTagsResponse {
+export interface UserGetTopTagsParams extends Pick<PaginationQueryParams, 'limit'> {
+    user: string;
+}
+
+export type UserGetTopTagsResponse = {
     toptags: {
         '@attr': {
             user: string;
@@ -201,14 +196,14 @@ export interface UserGetTopTagsResponse {
             url: string;
         })[];
     };
-}
-
-export type UserGetTopTracksParams = PaginationQueryParams & {
-    user: string;
-    period?: Period;
 };
 
-export interface UserGetTopTracksResponse {
+export interface UserGetTopTracksParams extends PaginationQueryParams {
+    user: string;
+    period?: Period;
+}
+
+export type UserGetTopTracksResponse = {
     toptracks: {
         '@attr': AttrPagination & {
             user: string;
@@ -220,15 +215,15 @@ export interface UserGetTopTracksResponse {
             image: Image[];
         })[];
     };
-}
+};
 
-export type UserGetWeeklyAlbumChartParams = {
+export interface UserGetWeeklyAlbumChartParams {
     user: string;
     from?: string;
     to?: string;
-};
+}
 
-export interface UserGetWeeklyAlbumChartResponse {
+export type UserGetWeeklyAlbumChartResponse = {
     weeklyalbumchart: {
         '@attr': {
             from: string;
@@ -244,15 +239,15 @@ export interface UserGetWeeklyAlbumChartResponse {
             };
         })[];
     };
-}
+};
 
-export type UserGetWeeklyArtistChartParams = {
+export interface UserGetWeeklyArtistChartParams {
     user: string;
     from?: string;
     to?: string;
-};
+}
 
-export interface UserGetWeeklyArtistChartResponse {
+export type UserGetWeeklyArtistChartResponse = {
     weeklyartistchart: {
         '@attr': {
             from: string;
@@ -266,15 +261,15 @@ export interface UserGetWeeklyArtistChartResponse {
             playcount: string;
         })[];
     };
-}
+};
 
-export type UserGetWeeklyArtistTrackParams = {
+export interface UserGetWeeklyArtistTrackParams {
     user: string;
     from?: string;
     to?: string;
-};
+}
 
-export interface UserGetWeeklyArtistTrackResponse {
+export type UserGetWeeklyArtistTrackResponse = {
     weeklytrackchart: {
         '@attr': {
             from: string;
@@ -291,9 +286,9 @@ export interface UserGetWeeklyArtistTrackResponse {
             image: Image[];
         })[];
     };
-}
+};
 
-export type User = {
+export interface User {
     age: string;
     album_count: string;
     artist_count: string;
@@ -306,8 +301,8 @@ export type User = {
     playlists: string;
     realname: string;
     registered: Registered;
-    subscriber: '0' | '1';
+    subscriber: FlagString;
     track_count: string;
     type: 'user' | 'subscriber' | 'alum' | 'staff';
     url: string;
-};
+}

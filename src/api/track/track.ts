@@ -1,3 +1,4 @@
+import type { OptionalUserPlayCount } from '../common.types';
 import { LastFmApi } from '../lastFmApi';
 import type {
     TrackGetCorrectionParams,
@@ -10,7 +11,6 @@ import type {
     TrackGetTagsResponse,
     TrackGetTopTagsParams,
     TrackGetTopTagsResponse,
-    TrackInfoType,
     TrackSearchParams,
     TrackSearchParamsResponse,
 } from './track.types';
@@ -24,7 +24,9 @@ export class TrackApi extends LastFmApi implements TrackApiInterface {
         });
     }
 
-    public getInfo<T extends TrackInfoType = undefined>(params: TrackGetInfoParams): Promise<TrackGetInfoResponse<T>> {
+    public getInfo<T extends OptionalUserPlayCount = undefined>(
+        params: TrackGetInfoParams,
+    ): Promise<TrackGetInfoResponse<T>> {
         return this.apiClient.get<TrackGetInfoResponse<T>, TrackGetInfoParams>({
             method: 'track.getInfo',
             api_key: this.apiKey,
@@ -67,7 +69,7 @@ export class TrackApi extends LastFmApi implements TrackApiInterface {
 
 interface TrackApiInterface {
     getCorrection(params: TrackGetCorrectionParams): Promise<TrackGetCorrectionResponse>;
-    getInfo<T extends TrackInfoType = undefined>(params: TrackGetInfoParams): Promise<TrackGetInfoResponse<T>>;
+    getInfo<T extends OptionalUserPlayCount = undefined>(params: TrackGetInfoParams): Promise<TrackGetInfoResponse<T>>;
     getSimilar(params: TrackGetSimilarParams): Promise<TrackGetSimilarResponse>;
     getTags(params: TrackGetTagsParams): Promise<TrackGetTagsResponse>;
     getTopTags(params: TrackGetTopTagsParams): Promise<TrackGetTopTagsResponse>;

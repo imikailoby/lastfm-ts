@@ -9,7 +9,7 @@ import type {
     UserGetPersonalTagsResponse,
     UserGetRecentTracksParams,
     UserGetRecentTracksResponse,
-    RecentTracksType,
+    TrackDetailLevel,
     UserGetTopAlbumsParams,
     UserGetTopAlbumsResponse,
     UserGetTopArtistsParams,
@@ -53,7 +53,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
         });
     }
 
-    public getPersonalTags<T = TaggingType>(
+    public getPersonalTags<T extends TaggingType>(
         params: UserGetPersonalTagsParams,
     ): Promise<UserGetPersonalTagsResponse<T>> {
         return this.apiClient.get<UserGetPersonalTagsResponse<T>, UserGetPersonalTagsParams>({
@@ -63,7 +63,7 @@ export class UserApi extends LastFmApi implements UserApiInterface {
         });
     }
 
-    public getRecentTracks<T = RecentTracksType>(
+    public getRecentTracks<T extends TrackDetailLevel = undefined>(
         params: UserGetRecentTracksParams,
     ): Promise<UserGetRecentTracksResponse<T>> {
         return this.apiClient.get<UserGetRecentTracksResponse<T>, UserGetRecentTracksParams>({
@@ -134,8 +134,10 @@ interface UserApiInterface {
     getFriends: (params: UserGetFriendsParams) => Promise<UserGetFriendsResponse>;
     getInfo: (params: UserGetInfoParams) => Promise<UserGetInfoResponse>;
     getLovedTracks: (params: UserGetLovedTracksParams) => Promise<UserGetLovedTracksResponse>;
-    getPersonalTags: <T = TaggingType>(params: UserGetPersonalTagsParams) => Promise<UserGetPersonalTagsResponse<T>>;
-    getRecentTracks: <T = RecentTracksType>(
+    getPersonalTags: <T extends TaggingType>(
+        params: UserGetPersonalTagsParams,
+    ) => Promise<UserGetPersonalTagsResponse<T>>;
+    getRecentTracks: <T extends TrackDetailLevel = undefined>(
         params: UserGetRecentTracksParams,
     ) => Promise<UserGetRecentTracksResponse<T>>;
     getTopAlbums: (params: UserGetTopAlbumsParams) => Promise<UserGetTopAlbumsResponse>;
