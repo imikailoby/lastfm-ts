@@ -6,7 +6,7 @@ TypeScript-based client for the [Last.fm API 2.0](https://www.last.fm/api), desi
 
 -   **Zero Dependencies**: Designed to function independently without any external dependencies.
 -   **Pure Responses**: No altered or decorated data from the API. Use API's original responses as you wish.
--   **Minimal size**: ≈1.1kb minified and gzipped size ([Bundlephobia](https://bundlephobia.com/package/@imikailoby/lastfm-ts)).
+-   **Minimal size**: ≈1kb minified and gzipped size ([Bundlephobia](https://bundlephobia.com/package/@imikailoby/lastfm-ts)).
 
 ## Installation
 
@@ -27,7 +27,7 @@ npm install @imikailoby/lastfm-ts
 Example:
 
 ```ts
-import { LastFm } from '@imikailoby/lastfm-ts’;
+import { LastFm } from '@imikailoby/lastfm-ts';
 
 const lastFm = new LastFm('api_key'); // Insert your API key
 

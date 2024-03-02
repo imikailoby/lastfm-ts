@@ -16,19 +16,14 @@ jobs:
             - name: Enable Corepack before setting up Node
               run: corepack enable
 
-            - name: Check required Node.js version
-              id: nvmrc
-              uses: browniebroke/read-nvmrc-action@v1
-
-            - name: Install Node.js ${{ steps.nvmrc.outputs.node_version }}
-              uses: actions/setup-node@v3
+            - name: Install Node.js
+              uses: actions/setup-node@v4
               with:
-                  node-version: '${{ steps.nvmrc.outputs.node_version }}'
+                  node-version-file: '.nvmrc'
+                  registry-url: 'https://registry.npmjs.org'
 
             - name: Install dependencies
-              run: |
-                  yarn set version latest --yarn-path
-                  yarn install --frozen-lockfile
+              run: yarn install
 
             - name: Run linters
               run: yarn lint

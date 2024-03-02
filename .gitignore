@@ -1,7 +1,6 @@
 # Directories
 node_modules
 dist
-.yarn
 coverage
 
 # Logs
@@ -11,3 +10,4 @@ yarn-error.log*
 # Other
 .DS_Store
 *.tgz
+.yarn/install-state.gz
