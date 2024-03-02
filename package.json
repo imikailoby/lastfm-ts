@@ -1,6 +1,6 @@
 {
     "name": "@imikailoby/lastfm-ts",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "A minimalistic TypeScript-based client for Last.fm API 2.0",
     "author": "Mikhail Prosmitskiy",
     "repository": {
