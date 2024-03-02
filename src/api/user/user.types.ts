@@ -117,6 +117,9 @@ interface BaseUserGetRecentTracksResponse {
 
 interface UserGetRecentTracksResponseRegular extends BaseUserGetRecentTracksResponse {
     track: (Pick<Track, 'mbid' | 'name' | 'url'> & {
+        '@attr'?: {
+            nowplaying: string;
+        };
         album: Pick<Album, 'mbid'> & {
             '#text': string;
         };
@@ -130,6 +133,9 @@ interface UserGetRecentTracksResponseRegular extends BaseUserGetRecentTracksResp
 
 interface UserGetRecentTracksResponseExtended extends BaseUserGetRecentTracksResponse {
     track: (Pick<Track, 'mbid' | 'name' | 'url'> & {
+        '@attr'?: {
+            nowplaying: string;
+        };
         album: Pick<Album, 'mbid'> & {
             '#text': string;
         };
