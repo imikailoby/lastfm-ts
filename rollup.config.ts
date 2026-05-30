@@ -33,7 +33,7 @@ const config: RollupOptions[] = [
     {
         input: 'src/index.ts',
         output: {
-            file: 'dist/index.min.d.js',
+            file: 'dist/index.min.d.ts',
             format: 'es',
         },
         plugins: [dts()],
