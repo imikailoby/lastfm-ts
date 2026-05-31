@@ -8,7 +8,7 @@
         "url": "git+https://github.com/imikailoby/lastfm-ts.git"
     },
     "main": "dist/index.min.js",
-    "types": "dist/index.min.d.js",
+    "types": "dist/index.min.d.ts",
     "scripts": {
         "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
         "lint": "eslint src/",
